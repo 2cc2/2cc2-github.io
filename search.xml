@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search> 
+  
+  
+    
+    <entry>
+      <title>计算机仿真系列(一)</title>
+      <link href="/2023/04/23/%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%BB%BF%E7%9C%9F/"/>
+      <url>/2023/04/23/%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%BB%BF%E7%9C%9F/</url>
+      
+        <content type="html"><![CDATA[<p>计算机仿真课程的学习目的在于借助本课程内容支持本学科更好的学习发展。</p><h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><h3 id="仿真的本质"><a href="#仿真的本质" class="headerlink" title="仿真的本质"></a>仿真的本质</h3><ul><li>本课程中的仿真指利用计算机模拟真实世界中的设备或过程的一种技术。</li><li>仿真是最广泛地进行研究和科学管理的一种技术，被有效运用于以下领域：</li></ul><ol><li>设计和分析制造系统</li><li>评估武器系统及其后勤保障</li><li>设计并操纵交通系统</li><li>对商业过程进行重新组织</li><li>对金融和经济系统进行分析<br>… …</li></ol><p>一种误解：仿真仅仅是一种计算机程序的演习。</p><h3 id="仿真的三要素-amp-三个基本活动"><a href="#仿真的三要素-amp-三个基本活动" class="headerlink" title="仿真的三要素&amp;三个基本活动"></a>仿真的三要素&amp;三个基本活动</h3><p>系统-模型-计算机<br>模型设计——设计实际的或设想的物理系统的模型<br>模型执行——在计算机上执行模型<br>模型分析——分析执行输出</p><h2 id="系统、模型与仿真"><a href="#系统、模型与仿真" class="headerlink" title="系统、模型与仿真"></a>系统、模型与仿真</h2><h3 id="系统的“三要素”及特点"><a href="#系统的“三要素”及特点" class="headerlink" title="系统的“三要素”及特点"></a>系统的“三要素”及特点</h3><ol><li>系统（Systems）<br>具有特定的功能，按照某些规律结合起来，互作用、互相依存的所有实体的集合或总和。</li></ol><h4 id="三要素"><a href="#三要素" class="headerlink" title="三要素"></a>三要素</h4><ol><li>实体： 确定了系统的构成，也就确定了系统的边界；</li><li>属性：也称为描述变量，描述每一实体的特征；</li><li>活动： 系统内部实体之间的相互作用，系统内部发生变化的过程。</li></ol><h3 id="系统三种特性"><a href="#系统三种特性" class="headerlink" title="系统三种特性"></a>系统三种特性</h3><ol><li>整体性：<br> 系统的各个部分不能随意分割；</li><li>相关性：<br> 系统内各个实体以一定的规律和方式相联系；</li><li>隶属性：<br> 系统必须确定边界，内部因素和环境。</li></ol><h3 id="模型"><a href="#模型" class="headerlink" title="模型"></a>模型</h3><p>定义：实际系统本质的抽象与简化。</p><ul><li>物理模型<br>采用一定比例尺按照真实系统的“样子”制作――沙盘模型。</li><li>数学模型<br>用数学表达式形式来描述系统的内在规律。</li></ul><h3 id="系统及模型分类"><a href="#系统及模型分类" class="headerlink" title="系统及模型分类"></a>系统及模型分类</h3><p>系统分类：离散型和连续型系统</p><p><img src="https://tt.xtt.ovh/imgs/2023/04/22/2d347eccd9aa1aae.png" alt="1"></p><h3 id="研究系统的方法"><a href="#研究系统的方法" class="headerlink" title="研究系统的方法"></a>研究系统的方法</h3><p><img src="https://tt.xtt.ovh/imgs/2023/04/22/4ad74379d7d4d91a.png" alt="2"><br>目前，常用的方法是通过模型进行实验，原因主要包括：</p><ol><li>系统还处于设计阶段，真实的系统尚未建立，人们需要更准确地了解未来系统的性能，只能通过对模型的试验来了解；</li><li>在真实系统上进行试验可能会引起系统破坏或发生故障，例如，对一个处于运行状态的化工系统或电力系统进行没有把握的试验将会冒着巨大的风险；</li><li>需要进行多次试验时，难以保证每次试验的条件相同，因而无法准确判断试验结果的优劣；</li><li>试验时间太长或费用昂贵。</li></ol><h3 id="研究系统-amp-模型-amp-仿真之间的关系"><a href="#研究系统-amp-模型-amp-仿真之间的关系" class="headerlink" title="研究系统&amp;模型&amp;仿真之间的关系"></a>研究系统&amp;模型&amp;仿真之间的关系</h3><ol><li>系统是研究的对象；</li><li>模型是系统的抽象；</li><li>仿真是通过对模型的实验以达到研究系统的目的。</li></ol><h3 id="仿真研究的一般流程（以个人项目举例）"><a href="#仿真研究的一般流程（以个人项目举例）" class="headerlink" title="仿真研究的一般流程（以个人项目举例）"></a>仿真研究的一般流程（以个人项目举例）</h3><h4 id="提出问题"><a href="#提出问题" class="headerlink" title="提出问题"></a>提出问题</h4><ol><li>如何做到高精度、目标追踪、平衡控制</li><li>我们研究的实际物体的姿态控制原理的仿真</li><li>在实际环境下模型的效能仿真</li></ol><h4 id="收集数据、定义模型"><a href="#收集数据、定义模型" class="headerlink" title="收集数据、定义模型"></a>收集数据、定义模型</h4><h4 id="数值积分法"><a href="#数值积分法" class="headerlink" title="数值积分法"></a>数值积分法</h4><h2 id="对“常微分方程（组）”建立离散形式的数学模型——差分方程，并求出其数值解。几种常用的积分法-欧拉法-梯形法-龙格-库塔法-亚当姆斯法"><a href="#对“常微分方程（组）”建立离散形式的数学模型——差分方程，并求出其数值解。几种常用的积分法-欧拉法-梯形法-龙格-库塔法-亚当姆斯法" class="headerlink" title="对“常微分方程（组）”建立离散形式的数学模型——差分方程，并求出其数值解。几种常用的积分法- 欧拉法- 梯形法- 龙格-库塔法- 亚当姆斯法  "></a>对“常微分方程（组）”建立离散形式的数学模型——差分方程，并求出其数值解。<br>几种常用的积分法<br>- 欧拉法<br>- 梯形法<br>- 龙格-库塔法<br>- 亚当姆斯法  </h2><ul><li>我们这里老师给出的示例模型为ball on the plate 模型，具有结构简单成熟度高的优点，但正因抽象程度过高，其与实际问题的结合并不紧密。(因为研究重点不在模型结构上所以建立物理模型的过程可以先使用它，后期随着更实际问题的考虑再进行改进)。</li><li>数学模型是重点：平衡的过程是连续的，我们所使用控制模型也对应该使用微分方程来处理，每一次的平衡打破与再恢复之间又是离散的时间。因此，我们讨论使用概率模型对整体数学控制模型经行作用是具有意义的。</li></ul><h4 id="程序设计"><a href="#程序设计" class="headerlink" title="程序设计"></a>程序设计</h4><p>主要分为目标追踪和机械控制两个方面，两者所要处理的数据是有部分重合的，我们现阶段可能还不会做的很完善但在做的过程中希望大家把数据分好类各数据项的参数描述清楚。这样模型代码修改和协作的时候不会出太大问题(需不需要统一代码风格变量这个我们先做，遇到了之后再说)。</p><h4 id="试运行"><a href="#试运行" class="headerlink" title="试运行"></a>试运行</h4><p>这个试运行的过程是建立在整体程序已完善后的，我们运行模型的目的：</p><ol><li>检验模型正确性</li><li>与真实模型进行比较</li><li>使用敏感性分析确定哪些参数对性能指标影响巨大，这需要我们建立一定的数学模型对产生的结果再进行分析（PCA、熵权等，）<a href="https://zhuanlan.zhihu.com/p/449073201">链接</a>。</li></ol><h4 id="检查法"><a href="#检查法" class="headerlink" title="检查法"></a>检查法</h4><p>主要思想是对比实际系统结果和模型结果的差异<br><img src="https://img001.org/imgs/2023/04/22/66dc3d44a7e9f8d1.png" alt="检查法"></p><h4 id="置信区间方法"><a href="#置信区间方法" class="headerlink" title="置信区间方法"></a>置信区间方法</h4><h4 id="设计实验"><a href="#设计实验" class="headerlink" title="设计实验"></a>设计实验</h4><h4 id="正式运行分析数据"><a href="#正式运行分析数据" class="headerlink" title="正式运行分析数据"></a>正式运行分析数据</h4><h4 id="应用结果"><a href="#应用结果" class="headerlink" title="应用结果"></a>应用结果</h4>]]></content>
+      
+      
+      <categories>
+          
+          <category> Computer Sim </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Computer Sim </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>正式会议纪要</title>
+      <link href="/2023/04/22/%E6%AD%A3%E5%BC%8F%E4%BC%9A%E8%AE%AE%E7%BA%AA%E8%A6%81/"/>
+      <url>/2023/04/22/%E6%AD%A3%E5%BC%8F%E4%BC%9A%E8%AE%AE%E7%BA%AA%E8%A6%81/</url>
+      
+        <content type="html"><![CDATA[<h1 id="第一次正式会议纪要"><a href="#第一次正式会议纪要" class="headerlink" title="第一次正式会议纪要"></a>第一次正式会议纪要</h1><!-- TOC --><ul><li><a href="#%E7%AC%AC%E4%B8%80%E6%AC%A1%E6%AD%A3%E5%BC%8F%E4%BC%9A%E8%AE%AE%E7%BA%AA%E8%A6%81">第一次正式会议纪要</a><ul><li><a href="#c4%E5%A4%A7%E8%B5%9B%E7%AD%94%E8%BE%A9%E6%97%B6%E9%97%B4%E7%82%B9%E6%8E%A7%E5%88%B6">C4大赛&amp;答辩——时间点控制</a></li><li><a href="#%E5%90%84%E6%A8%A1%E5%9D%97%E7%8E%B0%E7%8A%B6">各模块现状</a><ul><li><a href="#%E4%B8%8A%E4%BD%8D%E6%9C%BA">上位机</a></li><li><a href="#%E6%9C%BA%E5%99%A8%E8%A7%86%E8%A7%89">机器视觉</a></li><li><a href="#pid%E6%8E%A7%E5%88%B6%E7%AE%97%E6%B3%95">PID控制算法</a></li><li><a href="#%E6%9C%BA%E6%A2%B0%E6%8E%A7%E5%88%B6%E7%A1%AC%E4%BB%B6%E6%A8%A1%E5%9D%97">机械控制硬件模块</a></li></ul></li><li><a href="#%E9%A1%B9%E7%9B%AE%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B%E4%BB%8B%E7%BB%8D">项目工作流程介绍</a></li><li><a href="#%E7%9B%B8%E5%85%B3%E9%97%AE%E9%A2%98%E8%AE%A8%E8%AE%BA">相关问题讨论</a><ul><li><a href="#ps%E8%BF%98%E6%98%AF%E8%A6%81%E7%9C%8B%E5%AE%8C%E8%80%81%E5%B8%88%E7%9A%84%E8%AE%BA%E6%96%87%E7%84%B6%E5%90%8E%E6%89%BE%E5%88%B0%E7%9B%B8%E5%85%B3%E5%86%85%E5%AE%B9%E7%9A%84%E8%AE%BA%E6%96%87%E4%BB%A5%E5%8F%8A%E5%AD%A6%E4%B9%A0%E8%B5%84%E6%96%99%E5%9C%A8%E7%AD%9B%E9%80%89%E5%90%8E%E8%AF%B7%E5%8F%91%E5%9C%A8%E6%88%91%E4%BB%AC%E7%9A%84%E5%B7%A5%E4%BD%9C%E7%BE%A4%E9%87%8C%E4%BA%A4%E6%B5%81">PS:还是要看完老师的论文，然后找到相关内容的论文以及学习资料在筛选后请发在我们的工作群里交流。</a></li></ul></li><li><a href="#%E4%BA%94%E4%B8%80%E5%B7%A5%E4%BD%9Cddl">五一工作DDL</a></li></ul></li></ul><!-- /TOC --><h2 id="C4大赛-amp-答辩——时间点控制"><a href="#C4大赛-amp-答辩——时间点控制" class="headerlink" title="C4大赛&amp;答辩——时间点控制"></a>C4大赛&amp;答辩——时间点控制</h2><ol><li><p>资格赛24号出结果，全部材料仓促提交<br>重点：创意、技术、应用</p></li><li><p>选拔赛：6月18-28日（大体框架基本做完，可实现）<br>交材料：作品设计文档+源代码+系统运行视频<br>重点：设计（百分之三十）：技术路线，系统结构，用户界面<br>需要做的事：资格赛基础上深入<br>计划：建仓库，coding。</p></li><li><p>挑战赛：8月25日暑假快结束（收集数据，优化）<br>重点：效果<br>需要做的事：全部的大创结项结果  </p></li><li><p>答辩：5月份<br> (1) ppt:需优化<br><strong>研究背景、研究目的</strong>：向星舰的相关创意，思想靠齐<br><strong>研究算法</strong>：高精度的理解（PPT名词修改）<br><strong>算法方面</strong>:ppt字过于多了<br>PID:空了点，少数学公式，结合项目，关于物理分析的图片（老师论文，软件模拟），2-3张流程的那页PPT去掉。<br>都需要提出具体的<strong>创新点</strong>，要从概念想法到实际具体。</p></li><li><p>老师的组会：5月7日</p></li></ol><h2 id="各模块现状"><a href="#各模块现状" class="headerlink" title="各模块现状"></a>各模块现状</h2><h3 id="上位机"><a href="#上位机" class="headerlink" title="上位机"></a>上位机</h3><p>1）鸣<br>已完成的事：看论文，下软件等准备工作<br>正在做的事：完成工程正常进行</p><h3 id="机器视觉"><a href="#机器视觉" class="headerlink" title="机器视觉"></a>机器视觉</h3><p>2）豪<br>已完成的事：圆检测，圆心<br>正在做的事：坐标变化，整个图形坐标映射到平板上的坐标</p><h3 id="PID控制算法"><a href="#PID控制算法" class="headerlink" title="PID控制算法"></a>PID控制算法</h3><p>3）翔<br>已完成的事：<br>正在做的是：理论学习<br>数据处理要精细</p><h3 id="机械控制硬件模块"><a href="#机械控制硬件模块" class="headerlink" title="机械控制硬件模块"></a>机械控制硬件模块</h3><p>珠<br>已完成的事：</p><ul><li>分析了硬件对应的工作模块</li><li>树莓派基本操作</li></ul><p>正在做的事：</p><ul><li>树莓派ssh登录以及开发环境配置</li><li>明确固件参数-购买</li><li>串口及舵机控制</li></ul><p>目前的问题：</p><ol><li>暂无问题，顺利推进</li><li>问题大致是什么，需要什么帮助。</li></ol><h2 id="项目工作流程介绍"><a href="#项目工作流程介绍" class="headerlink" title="项目工作流程介绍"></a>项目工作流程介绍</h2><p>工作流程梳理：<br>张：获得视觉数据|任：数据 –&gt;曹：处理数据树莓派计算值-&gt;任：PID处理给出误差量调节PWM占空比–&gt;朱：上位机开发|小球运动轨迹、误差量及平衡过程可视化（较为独立，同时帮助祥解决遇到的问题）–&gt;珠：接收数据串口通信控制舵机平衡操作–&gt;张：获得新的视觉数据继续-&gt;&gt;…..<br>软硬件对照后续做到再进一步明确</p><h2 id="相关问题讨论"><a href="#相关问题讨论" class="headerlink" title="相关问题讨论"></a>相关问题讨论</h2><ol><li>仿真软件是否满足模拟的计算要求：可，不担心</li><li>模型推应用，说清楚怎么样从火箭回收抽象出板球平衡：火箭回收和航天器的地外行星地面软着陆垂直下降过程某一时刻的平稳落地、姿态调整，球看做火箭中轴线在水平面上交点实现平衡。（每时每刻监测）</li><li>与电赛中的板球模型的创新点：实际应用的概念<br>板球模型的上升：圆柱体模型（？）or+下降过程模拟（不需）</li><li>实际火箭回收中平稳下降过程中相机：降落点处向下往上（效果&#x3D;板球模型中上方观测的相机）</li><li>互联网+：拉类似的项目团队入伙，长空学院&#x2F;航天学院</li><li>蒙特卡罗方法的讨论。</li></ol><h3 id="PS-还是要看完老师的论文，然后找到相关内容的论文以及学习资料在筛选后请发在我们的工作群里交流。"><a href="#PS-还是要看完老师的论文，然后找到相关内容的论文以及学习资料在筛选后请发在我们的工作群里交流。" class="headerlink" title="PS:还是要看完老师的论文，然后找到相关内容的论文以及学习资料在筛选后请发在我们的工作群里交流。"></a>PS:还是要看完老师的论文，然后找到相关内容的论文以及学习资料在筛选后请发在我们的工作群里交流。</h3><h2 id="五一工作DDL"><a href="#五一工作DDL" class="headerlink" title="五一工作DDL"></a>五一工作DDL</h2><ul><li>PPT修改成型</li><li>鸣：上位机框架完成</li><li>珠：舵机控制问题，硬件清单，结合申报书和论文再次确认所需硬件。</li><li>翔：PID基本代码，最好有开发文档</li><li>豪：OpenCV基本实现代码，</li><li>曹：树莓派，建立基于PID的初步数学模型、进行3D建模。</li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> 科创会议纪要 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 科创会议纪要 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>My first Blog</title>
+      <link href="/2023/04/21/1/"/>
+      <url>/2023/04/21/1/</url>
+      
+        <content type="html"><![CDATA[<div class="hbe hbe-container" id="hexo-blog-encrypt" data-wpm="抱歉, 这个密码看着不太对, 请再试试." data-whm="抱歉, 这个文章不能被校验, 不过您还是能看看解密后的内容.">  <script id="hbeData" type="hbeData" data-hmacdigest="d926664b126365fdebed0477bb1d35173cff70451e1b5bb244864acdfab188f3">6eda81354f2a6c7e6f6c92c0633cf4a3043e5d07bf473fee68883a8385c0fdcc</script>  <div class="hbe hbe-content">    <div class="hbe hbe-input hbe-input-xray">      <input class="hbe hbe-input-field hbe-input-field-xray" type="password" id="hbePass">      <label class="hbe hbe-input-label hbe-input-label-xray" for="hbePass">        <span class="hbe hbe-input-label-content hbe-input-label-content-xray">您好, 这里需要密码.</span>      </label>      <svg class="hbe hbe-graphic hbe-graphic-xray" width="300%" height="100%" viewBox="0 0 1200 60" preserveAspectRatio="none">        <path d="M0,56.5c0,0,298.666,0,399.333,0C448.336,56.5,513.994,46,597,46c77.327,0,135,10.5,200.999,10.5c95.996,0,402.001,0,402.001,0"></path>        <path d="M0,2.5c0,0,298.666,0,399.333,0C448.336,2.5,513.994,13,597,13c77.327,0,135-10.5,200.999-10.5c95.996,0,402.001,0,402.001,0"></path>      </svg>    </div>  </div></div><script data-pjax src="/lib/hbe.js"></script><link href="/css/hbe.style.css" rel="stylesheet" type="text/css">]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Hello World</title>
+      <link href="/2023/04/17/hello-world/"/>
+      <url>/2023/04/17/hello-world/</url>
+      
+        <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+  
+  
+</search>
