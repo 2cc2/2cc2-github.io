@@ -5,6 +5,31 @@
     
     <entry>
       <title>计算机仿真系列(一)</title>
+      <link href="/2023/04/23/%E6%A0%91%E8%8E%93%E6%B4%BE+Ubuntu/"/>
+      <url>/2023/04/23/%E6%A0%91%E8%8E%93%E6%B4%BE+Ubuntu/</url>
+      
+        <content type="html"><![CDATA[<p>计算机仿真课程的学习目的在于借助本课程内容支持本学科更好的学习发展。</p><h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><h3 id="仿真的本质"><a href="#仿真的本质" class="headerlink" title="仿真的本质"></a>仿真的本质</h3><ul><li>本课程中的仿真指利用计算机模拟真实世界中的设备或过程的一种技术。</li><li>仿真是最广泛地进行研究和科学管理的一种技术，被有效运用于以下领域：</li></ul><ol><li>设计和分析制造系统</li><li>评估武器系统及其后勤保障</li><li>设计并操纵交通系统</li><li>对商业过程进行重新组织</li><li>对金融和经济系统进行分析<br>… …</li></ol><p>一种误解：仿真仅仅是一种计算机程序的演习。</p><h3 id="仿真的三要素-amp-三个基本活动"><a href="#仿真的三要素-amp-三个基本活动" class="headerlink" title="仿真的三要素&amp;三个基本活动"></a>仿真的三要素&amp;三个基本活动</h3><p>系统-模型-计算机<br>模型设计——设计实际的或设想的物理系统的模型<br>模型执行——在计算机上执行模型<br>模型分析——分析执行输出</p><h2 id="系统、模型与仿真"><a href="#系统、模型与仿真" class="headerlink" title="系统、模型与仿真"></a>系统、模型与仿真</h2><h3 id="系统的“三要素”及特点"><a href="#系统的“三要素”及特点" class="headerlink" title="系统的“三要素”及特点"></a>系统的“三要素”及特点</h3><ol><li>系统（Systems）<br>具有特定的功能，按照某些规律结合起来，互作用、互相依存的所有实体的集合或总和。</li></ol><h4 id="三要素"><a href="#三要素" class="headerlink" title="三要素"></a>三要素</h4><ol><li>实体： 确定了系统的构成，也就确定了系统的边界；</li><li>属性：也称为描述变量，描述每一实体的特征；</li><li>活动： 系统内部实体之间的相互作用，系统内部发生变化的过程。</li></ol><h3 id="系统三种特性"><a href="#系统三种特性" class="headerlink" title="系统三种特性"></a>系统三种特性</h3><ol><li>整体性：<br> 系统的各个部分不能随意分割；</li><li>相关性：<br> 系统内各个实体以一定的规律和方式相联系；</li><li>隶属性：<br> 系统必须确定边界，内部因素和环境。</li></ol><h3 id="模型"><a href="#模型" class="headerlink" title="模型"></a>模型</h3><p>定义：实际系统本质的抽象与简化。</p><ul><li>物理模型<br>采用一定比例尺按照真实系统的“样子”制作――沙盘模型。</li><li>数学模型<br>用数学表达式形式来描述系统的内在规律。</li></ul><h3 id="系统及模型分类"><a href="#系统及模型分类" class="headerlink" title="系统及模型分类"></a>系统及模型分类</h3><p>系统分类：离散型和连续型系统</p><p><img src="https://tt.xtt.ovh/imgs/2023/04/22/2d347eccd9aa1aae.png" alt="1"></p><h3 id="研究系统的方法"><a href="#研究系统的方法" class="headerlink" title="研究系统的方法"></a>研究系统的方法</h3><p><img src="https://tt.xtt.ovh/imgs/2023/04/22/4ad74379d7d4d91a.png" alt="2"><br>目前，常用的方法是通过模型进行实验，原因主要包括：</p><ol><li>系统还处于设计阶段，真实的系统尚未建立，人们需要更准确地了解未来系统的性能，只能通过对模型的试验来了解；</li><li>在真实系统上进行试验可能会引起系统破坏或发生故障，例如，对一个处于运行状态的化工系统或电力系统进行没有把握的试验将会冒着巨大的风险；</li><li>需要进行多次试验时，难以保证每次试验的条件相同，因而无法准确判断试验结果的优劣；</li><li>试验时间太长或费用昂贵。</li></ol><h3 id="研究系统-amp-模型-amp-仿真之间的关系"><a href="#研究系统-amp-模型-amp-仿真之间的关系" class="headerlink" title="研究系统&amp;模型&amp;仿真之间的关系"></a>研究系统&amp;模型&amp;仿真之间的关系</h3><ol><li>系统是研究的对象；</li><li>模型是系统的抽象；</li><li>仿真是通过对模型的实验以达到研究系统的目的。</li></ol><h3 id="仿真研究的一般流程（以个人项目举例）"><a href="#仿真研究的一般流程（以个人项目举例）" class="headerlink" title="仿真研究的一般流程（以个人项目举例）"></a>仿真研究的一般流程（以个人项目举例）</h3><h4 id="提出问题"><a href="#提出问题" class="headerlink" title="提出问题"></a>提出问题</h4><ol><li>如何做到高精度、目标追踪、平衡控制</li><li>我们研究的实际物体的姿态控制原理的仿真</li><li>在实际环境下模型的效能仿真</li></ol><h4 id="收集数据、定义模型"><a href="#收集数据、定义模型" class="headerlink" title="收集数据、定义模型"></a>收集数据、定义模型</h4><h4 id="数值积分法"><a href="#数值积分法" class="headerlink" title="数值积分法"></a>数值积分法</h4><h2 id="对“常微分方程（组）”建立离散形式的数学模型——差分方程，并求出其数值解。几种常用的积分法-欧拉法-梯形法-龙格-库塔法-亚当姆斯法"><a href="#对“常微分方程（组）”建立离散形式的数学模型——差分方程，并求出其数值解。几种常用的积分法-欧拉法-梯形法-龙格-库塔法-亚当姆斯法" class="headerlink" title="对“常微分方程（组）”建立离散形式的数学模型——差分方程，并求出其数值解。几种常用的积分法- 欧拉法- 梯形法- 龙格-库塔法- 亚当姆斯法  "></a>对“常微分方程（组）”建立离散形式的数学模型——差分方程，并求出其数值解。<br>几种常用的积分法<br>- 欧拉法<br>- 梯形法<br>- 龙格-库塔法<br>- 亚当姆斯法  </h2><ul><li>我们这里老师给出的示例模型为ball on the plate 模型，具有结构简单成熟度高的优点，但正因抽象程度过高，其与实际问题的结合并不紧密。(因为研究重点不在模型结构上所以建立物理模型的过程可以先使用它，后期随着更实际问题的考虑再进行改进)。</li><li>数学模型是重点：平衡的过程是连续的，我们所使用控制模型也对应该使用微分方程来处理，每一次的平衡打破与再恢复之间又是离散的时间。因此，我们讨论使用概率模型对整体数学控制模型经行作用是具有意义的。</li></ul><h4 id="程序设计"><a href="#程序设计" class="headerlink" title="程序设计"></a>程序设计</h4><p>主要分为目标追踪和机械控制两个方面，两者所要处理的数据是有部分重合的，我们现阶段可能还不会做的很完善但在做的过程中希望大家把数据分好类各数据项的参数描述清楚。这样模型代码修改和协作的时候不会出太大问题(需不需要统一代码风格变量这个我们先做，遇到了之后再说)。</p><h4 id="试运行"><a href="#试运行" class="headerlink" title="试运行"></a>试运行</h4><p>这个试运行的过程是建立在整体程序已完善后的，我们运行模型的目的：</p><ol><li>检验模型正确性</li><li>与真实模型进行比较</li><li>使用敏感性分析确定哪些参数对性能指标影响巨大，这需要我们建立一定的数学模型对产生的结果再进行分析（PCA、熵权等，）<a href="https://zhuanlan.zhihu.com/p/449073201">链接</a>。</li></ol><h4 id="检查法"><a href="#检查法" class="headerlink" title="检查法"></a>检查法</h4><p>主要思想是对比实际系统结果和模型结果的差异<br><img src="https://img001.org/imgs/2023/04/22/66dc3d44a7e9f8d1.png" alt="检查法"></p><h4 id="置信区间方法"><a href="#置信区间方法" class="headerlink" title="置信区间方法"></a>置信区间方法</h4><h4 id="设计实验"><a href="#设计实验" class="headerlink" title="设计实验"></a>设计实验</h4><h4 id="正式运行分析数据"><a href="#正式运行分析数据" class="headerlink" title="正式运行分析数据"></a>正式运行分析数据</h4><h4 id="应用结果"><a href="#应用结果" class="headerlink" title="应用结果"></a>应用结果</h4>]]></content>
+      
+      
+      <categories>
+          
+          <category> Computer Sim </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Computer Sim </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>计算机仿真系列(一)</title>
       <link href="/2023/04/23/%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%BB%BF%E7%9C%9F/"/>
       <url>/2023/04/23/%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%BB%BF%E7%9C%9F/</url>
       
@@ -58,7 +83,7 @@
       <link href="/2023/04/21/1/"/>
       <url>/2023/04/21/1/</url>
       
-        <content type="html"><![CDATA[<div class="hbe hbe-container" id="hexo-blog-encrypt" data-wpm="抱歉, 这个密码看着不太对, 请再试试." data-whm="抱歉, 这个文章不能被校验, 不过您还是能看看解密后的内容.">  <script id="hbeData" type="hbeData" data-hmacdigest="d926664b126365fdebed0477bb1d35173cff70451e1b5bb244864acdfab188f3">6eda81354f2a6c7e6f6c92c0633cf4a3043e5d07bf473fee68883a8385c0fdcc</script>  <div class="hbe hbe-content">    <div class="hbe hbe-input hbe-input-xray">      <input class="hbe hbe-input-field hbe-input-field-xray" type="password" id="hbePass">      <label class="hbe hbe-input-label hbe-input-label-xray" for="hbePass">        <span class="hbe hbe-input-label-content hbe-input-label-content-xray">您好, 这里需要密码.</span>      </label>      <svg class="hbe hbe-graphic hbe-graphic-xray" width="300%" height="100%" viewBox="0 0 1200 60" preserveAspectRatio="none">        <path d="M0,56.5c0,0,298.666,0,399.333,0C448.336,56.5,513.994,46,597,46c77.327,0,135,10.5,200.999,10.5c95.996,0,402.001,0,402.001,0"></path>        <path d="M0,2.5c0,0,298.666,0,399.333,0C448.336,2.5,513.994,13,597,13c77.327,0,135-10.5,200.999-10.5c95.996,0,402.001,0,402.001,0"></path>      </svg>    </div>  </div></div><script data-pjax src="/lib/hbe.js"></script><link href="/css/hbe.style.css" rel="stylesheet" type="text/css">]]></content>
+        <content type="html"><![CDATA[<p>亲爱又陌生的你：<br>　　你好，这是我的第一篇博客。之所以采用书信的格式，只是觉得这样不落俗套。我是一名计算机大二的本科生，专业是信息安全，但对安全还一窍不通，编程更是麻瓜，开发能力暂时没有，但干饭很是在行。兴趣点在嵌入式开发，网络安全这部分暂时还真的不感冒。平时不太打游戏就玩玩ＣＳ，喜欢跑步、打篮球、和游泳。现除熬夜又早起暂无其它不良嗜好。　　　<br>　　人生的目标：本来我只希望我能无忧无虑的活着衣食无忧平稳安定的生活，不过感觉好像无忧无虑就挺难的，随着最近ｅｍｏ次数多起来了之后整个人都不好了。现阶段目标：给我烂糟的大学生涯再多添加些回忆的点。<br>　　之后我会主要记录个人项目的相关学习内容和部分个人学习涉及到的知识。同时我还有一个大胆的想法，也可能是本人博客的一条并行的线路：即在仅省的大学四年里充实自己计算机知识的同时学习部分医学和人体脑科学的知识，这是我最初没上大学前最感兴趣的点，可惜当时的自己不够坚定，对学医本身了解也不多，错过错过。前几天我也是读了Ｌｉｃａｒｄｏ的自传，有被感染到，他的积极自信和对待真正热爱之事的方式让我很是受用，希望计算机能更好的运用在医学上、能更好的用在更多的地方。对于亲爱又陌生的你，还记得最初自己的模样吗？热爱的事是个体独立性的，真正个性的源头。无论什么时候请不要丢弃，否则你会无趣如泡了八百次的茶。趁风华正好，热爱的事就去做吧，毁灭不了你的终将会成就你。<br>　　阿苏送你一句话：且将新火试新茶，诗酒趁年华。<br>　<br>　　Ｃｒｅｓｃ．敬上～</p>]]></content>
       
       
       
