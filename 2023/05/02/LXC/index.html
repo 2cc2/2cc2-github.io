@@ -1,0 +1,244 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>建立网络拓扑Linux虚拟容器准备-LXC | C2のBLOG</title><meta name="keywords" content="LXC"><meta name="author" content="Cresc."><meta name="copyright" content="Cresc."><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="NFV网络拓扑实现-LXC及FRR环境准备及研究[TOC] 概述LXC:是一种虚拟化服务，允许我们旋转隔离的 Linux 环境集群。通过减少主机上的资源负载，它提供了大量优于单体虚拟机的好处。这使其成为构建、测试和部署云原生软件的理想选择。与其他操作系统级虚拟化工具不同，LXC 提供了更好的 Linux 环境。 和其它工具之间的关系linux contains 的技术是linux 内核的代码，并非">
+<meta property="og:type" content="article">
+<meta property="og:title" content="建立网络拓扑Linux虚拟容器准备-LXC">
+<meta property="og:url" content="http://2cc2.github.io/2023/05/02/LXC/index.html">
+<meta property="og:site_name" content="C2のBLOG">
+<meta property="og:description" content="NFV网络拓扑实现-LXC及FRR环境准备及研究[TOC] 概述LXC:是一种虚拟化服务，允许我们旋转隔离的 Linux 环境集群。通过减少主机上的资源负载，它提供了大量优于单体虚拟机的好处。这使其成为构建、测试和部署云原生软件的理想选择。与其他操作系统级虚拟化工具不同，LXC 提供了更好的 Linux 环境。 和其它工具之间的关系linux contains 的技术是linux 内核的代码，并非">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i0.wp.com/www.overlookhorizon.com/wp-content/uploads/2020/04/DVZz1irVoAEUgG1-scaled.jpg?ssl=1">
+<meta property="article:published_time" content="2023-05-02T15:29:29.000Z">
+<meta property="article:modified_time" content="2023-05-09T08:54:50.298Z">
+<meta property="article:author" content="Cresc.">
+<meta property="article:tag" content="LXC">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i0.wp.com/www.overlookhorizon.com/wp-content/uploads/2020/04/DVZz1irVoAEUgG1-scaled.jpg?ssl=1"><link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh//2cc2/Image_bed@main/C2_IMG/v2-375af5e86e94b88a2a6ba0bd7906c87f_720w.jpg"><link rel="canonical" href="http://2cc2.github.io/2023/05/02/LXC/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-05-09 16:54:50'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    })(window)</script><link rel="stylesheet" href="/css/mouse.css"><meta name="generator" content="Hexo 5.4.2"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" src="https://pica.zhimg.com/50/v2-375af5e86e94b88a2a6ba0bd7906c87f_720w.jpg?source=1940ef5c" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">7</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">7</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">2</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://i0.wp.com/www.overlookhorizon.com/wp-content/uploads/2020/04/DVZz1irVoAEUgG1-scaled.jpg?ssl=1')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">C2のBLOG</a></span><div id="he-plugin-simple"></div><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">建立网络拓扑Linux虚拟容器准备-LXC</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-05-02T15:29:29.000Z" title="发表于 2023-05-02 23:29:29">2023-05-02</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-05-09T08:54:50.298Z" title="更新于 2023-05-09 16:54:50">2023-05-09</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">2.1k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>8分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="建立网络拓扑Linux虚拟容器准备-LXC"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="NFV网络拓扑实现-LXC及FRR环境准备及研究"><a href="#NFV网络拓扑实现-LXC及FRR环境准备及研究" class="headerlink" title="NFV网络拓扑实现-LXC及FRR环境准备及研究"></a>NFV网络拓扑实现-LXC及FRR环境准备及研究</h1><p>[TOC]</p>
+<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>LXC:是一种虚拟化服务，允许我们旋转隔离的 Linux 环境集群。通过减少主机上的资源负载，它提供了大量优于单体虚拟机的好处。这使其成为构建、测试和部署云原生软件的理想选择。与其他操作系统级虚拟化工具不同，LXC 提供了更好的 Linux 环境。</p>
+<h2 id="和其它工具之间的关系"><a href="#和其它工具之间的关系" class="headerlink" title="和其它工具之间的关系"></a>和其它工具之间的关系</h2><p>linux contains 的技术是linux 内核的代码，并非Docker 开发出来的，Docker或者其他的虚拟化容器都是基于LXC 的技术，在基础的lxc 上包了一层代码，让LXC 更简单、更友好，更加好推广。</p>
+<h3 id="使用原因"><a href="#使用原因" class="headerlink" title="使用原因"></a>使用原因</h3><ol>
+<li><p>可以尽可能多的在本地模拟不同的开发环境，而不产生重新创建服务器环境的开销。而要如何确保应用能够在这些环境中运行和通过质量检测，并且在部署过程中不出现令人头疼的问题，也无需重新编写代码和进行故障修复的途径就是使用容器。</p>
+</li>
+<li><p>容器可以确保您的应用拥有必需的库、依赖项和文件，让您可以在生产中自如地迁移这些应用，无需担心会出现负面影响。实际上，您可以将容器镜像中的内容（使用 Buildah 等开源工具创建）视为 Linux 发行版的一个安装实例，因为其中完整包含 RPM 软件包、配置文件等内容。但是，安装容器镜像发行版，要比安装新的操作系统副本容易得多。这样可以避免危机，做到皆大欢喜。</p>
+</li>
+</ol>
+<h3 id="什么是LXC项目"><a href="#什么是LXC项目" class="headerlink" title="什么是LXC项目"></a>什么是LXC项目</h3><p>作为一个开源容器平台，Linux 容器项目（LXC）提供了一组工具、模板、库和语言绑定。LXC 采用简单的命令行界面，可改善容器启动时的用户体验。</p>
+<p>LXC 提供了一个操作系统级的虚拟化环境，可在许多基于 Linux 的系统上安装。在 Linux 发行版中，可能会通过其软件包存储库来提供 LXC。</p>
+<h3 id="虚拟机环境"><a href="#虚拟机环境" class="headerlink" title="虚拟机环境"></a>虚拟机环境</h3><p>VM+Ubuntu20.04  </p>
+<h3 id="安装lxc及网络配置"><a href="#安装lxc及网络配置" class="headerlink" title="安装lxc及网络配置"></a>安装lxc及网络配置</h3><ol>
+<li>安装LXC<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 安装lxc</span><br><span class="line">sudo apt-get install lxc</span><br><span class="line"># 检查Linux内核是否具有所需配置</span><br><span class="line">lxc-checkconfig</span><br></pre></td></tr></table></figure></li>
+<li>创建LXC容器<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">#切换root用户</span><br><span class="line">sudo -i</span><br><span class="line"># 下载lxc模板</span><br><span class="line">apt-get install lxc-templates</span><br><span class="line"># 创建c4</span><br><span class="line">lxc-create -n c4 -t ubuntu</span><br><span class="line">#显示已创建的lxc容器</span><br><span class="line">lxc-ls</span><br><span class="line">#显示容器具体信息</span><br><span class="line">lxc-ls -f</span><br></pre></td></tr></table></figure></li>
+<li>lxc容器基本操作<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">#启动lxc容器</span><br><span class="line">lxc-start -n c4</span><br><span class="line">#进入lxc容器</span><br><span class="line">lxc-attach c4</span><br><span class="line">#停止容器</span><br><span class="line">lxc-stop c4</span><br></pre></td></tr></table></figure></li>
+<li>网络配置-建立桥连接<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#查看网络运行基本信息</span><br><span class="line">ifconfig</span><br></pre></td></tr></table></figure>
+可以查看到ens33是我们的网卡，我们将通过在宿主机中添加网桥(对应实际中的交换机设备)，建立虚拟容器和宿主机之间的桥连接：<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">#查看文件注释需要使用</span><br><span class="line">sudo apt install ifupdown</span><br><span class="line">cd /etc/network</span><br><span class="line">vim interfaces</span><br><span class="line">#修改配置文件</span><br><span class="line"></span><br><span class="line">auto br0</span><br><span class="line">iface br0 inet dhcp #dhcp自动分配</span><br><span class="line">        bridge_ports ens33</span><br><span class="line">        bridge_fd 0</span><br><span class="line">        bridge_maxwait 0</span><br></pre></td></tr></table></figure>
+执行<code>/etc/init.d/networking restart</code>重启网络<br>然后编辑容器配置文件，设置网桥为自定义网桥。<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">#修改容器网络配置</span><br><span class="line">vim /var/lib/lxc/c4/config</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="FRR安装"><a href="#FRR安装" class="headerlink" title="FRR安装"></a>FRR安装</h3><ol>
+<li>安装环境依赖<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">sudo apt update</span><br><span class="line">sudo apt-get install \</span><br><span class="line">   git autoconf automake libtool make libreadline-dev texinfo \</span><br><span class="line">   pkg-config libpam0g-dev libjson-c-dev bison flex \</span><br><span class="line">   libc-ares-dev python3-dev python3-sphinx \</span><br><span class="line">   install-info build-essential libsnmp-dev perl \</span><br><span class="line">   libcap-dev python2 libelf-dev libunwind-dev</span><br></pre></td></tr></table></figure>
+合成一行运行<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install git autoconf automake libtool make libreadline-dev texinfo pkg-config libpam0g-dev libjson-c-dev bison flex libc-ares-dev python3-dev python3-sphinx install-info build-essential libsnmp-dev perl libcap-dev python2 libelf-dev libunwind-dev</span><br></pre></td></tr></table></figure></li>
+<li>安装curl包并进行以下操作<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install curl</span><br><span class="line">curl https://bootstrap.pypa.io/pip/2.7/get-pip.py --output get-pip.py</span><br><span class="line">sudo python2 ./get-pip.py</span><br><span class="line"></span><br><span class="line"># 检查pip2下载是否成功</span><br><span class="line">pip2 --version</span><br></pre></td></tr></table></figure></li>
+<li>安装cmake及libpcre2-dev<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo install cmake</span><br><span class="line">sudo install libpcre2-dev</span><br></pre></td></tr></table></figure></li>
+<li>安装FRR<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/CESNET/libyang.git</span><br><span class="line">cd libyang</span><br><span class="line">git checkout v2.0.0</span><br><span class="line">mkdir build; cd build</span><br><span class="line">cmake -D CMAKE_INSTALL_PREFIX:PATH=/usr -D CMAKE_BUILD_TYPE:String=&quot;Release&quot; ..</span><br><span class="line">make</span><br><span class="line">sudo make install</span><br></pre></td></tr></table></figure>
+执行如下命令<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install protobuf-c-compiler libprotobuf-c-dev</span><br><span class="line"></span><br><span class="line">sudo apt-get install libzmq5 libzmq3-dev</span><br></pre></td></tr></table></figure></li>
+<li>配置FRR用户<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">sudo groupadd -r -g 92 frr</span><br><span class="line">sudo groupadd -r -g 85 frrvty</span><br><span class="line">sudo adduser --system --ingroup frr --home /var/run/frr/ \</span><br><span class="line">   --gecos &quot;FRR suite&quot; --shell /sbin/nologin frr</span><br><span class="line">sudo usermod -a -G frrvty frr</span><br></pre></td></tr></table></figure></li>
+<li>编译<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/frrouting/frr.git frr</span><br><span class="line">cd frr</span><br><span class="line">./bootstrap.sh</span><br><span class="line">./configure \</span><br><span class="line">    --prefix=/usr \</span><br><span class="line">    --includedir=\$&#123;prefix&#125;/include \</span><br><span class="line">    --bindir=\$&#123;prefix&#125;/bin \</span><br><span class="line">    --sbindir=\$&#123;prefix&#125;/lib/frr \</span><br><span class="line">    --libdir=\$&#123;prefix&#125;/lib/frr \</span><br><span class="line">    --libexecdir=\$&#123;prefix&#125;/lib/frr \</span><br><span class="line">    --localstatedir=/var/run/frr \</span><br><span class="line">    --sysconfdir=/etc/frr \</span><br><span class="line">    --with-moduledir=\$&#123;prefix&#125;/lib/frr/modules \</span><br><span class="line">    --with-libyang-pluginsdir=\$&#123;prefix&#125;/lib/frr/libyang_plugins \</span><br><span class="line">    --enable-configfile-mask=0640 \</span><br><span class="line">    --enable-logfile-mask=0640 \</span><br><span class="line">    --enable-snmp=agentx \</span><br><span class="line">    --enable-multipath=64 \</span><br><span class="line">    --enable-user=frr \</span><br><span class="line">    --enable-group=frr \</span><br><span class="line">    --enable-vty-group=frrvty \</span><br><span class="line">    --with-pkg-git-version \</span><br><span class="line">    --with-pkg-extra-version=-MyOwnFRRVersion</span><br><span class="line">make</span><br><span class="line">sudo make install</span><br></pre></td></tr></table></figure></li>
+<li>安装FRR文件<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">sudo install -m 775 -o frr -g frr -d /var/log/frr</span><br><span class="line">sudo install -m 775 -o frr -g frrvty -d /etc/frr</span><br><span class="line">sudo install -m 640 -o frr -g frrvty tools/etc/frr/vtysh.conf /etc/frr/vtysh.conf</span><br><span class="line">sudo install -m 640 -o frr -g frr tools/etc/frr/frr.conf /etc/frr/frr.conf</span><br><span class="line">sudo install -m 640 -o frr -g frr tools/etc/frr/daemons.conf /etc/frr/daemons.conf</span><br><span class="line">sudo install -m 640 -o frr -g frr tools/etc/frr/daemons /etc/frr/daemons</span><br></pre></td></tr></table></figure></li>
+<li>修改文件</li>
+</ol>
+<p>修改 <code>/etc/sysctl.conf</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"># Uncomment the next line to enable packet forwarding for IPv4</span><br><span class="line">net.ipv4.ip_forward=1</span><br><span class="line"></span><br><span class="line"># Uncomment the next line to enable packet forwarding for IPv6</span><br><span class="line">#  Enabling this option disables Stateless Address Autoconfiguration</span><br><span class="line">#  based on Router Advertisements for this host</span><br><span class="line">net.ipv6.conf.all.forwarding=1</span><br></pre></td></tr></table></figure>
+<ol start="9">
+<li>添加内核</li>
+</ol>
+<p>在 &#x2F;etc&#x2F;modules-load.d&#x2F;modules.conf中添加</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># Load MPLS Kernel Modules</span><br><span class="line">mpls_router</span><br><span class="line">mpls_iptunnel</span><br></pre></td></tr></table></figure>
+<p>随后，在主机上先执行</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo modprobe mpls-router mpls-iptunnel</span><br></pre></td></tr></table></figure>
+<p>然后在lxc容器中执行一次如果容器中执行出错，尝试</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt-get install linux-modules-extra-`uname -r`-generic</span><br></pre></td></tr></table></figure>
+<p>如果以上代码出错，去除generic。<br>10. MPLS</p>
+<p>在&#x2F;etc&#x2F;sysctl.conf添加</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># Enable MPLS Label processing on all interfaces</span><br><span class="line">net.mpls.conf.eth0.input=1</span><br><span class="line">net.mpls.conf.eth1.input=1</span><br><span class="line">net.mpls.conf.eth2.input=1</span><br><span class="line">net.mpls.platform_labels=100000</span><br></pre></td></tr></table></figure>
+<p>PS：eth1,eth2网卡如果没有。需要注释掉<br>执行<code>sysctl -p</code>刷新一次<br>11. 安装服务文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">#PS：先进如你创建的frr目录下进行</span><br><span class="line">sudo install -m 644 tools/frr.service /etc/systemd/system/frr.service</span><br><span class="line">sudo systemctl enable frr</span><br></pre></td></tr></table></figure>
+<ol start="12">
+<li>开启所需要的服务<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vim /etc/frr/daemons</span><br></pre></td></tr></table></figure></li>
+<li>开启服务<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl start frr  </span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="veth连接"><a href="#veth连接" class="headerlink" title="veth连接"></a>veth连接</h2><h3 id="明确几点内容："><a href="#明确几点内容：" class="headerlink" title="明确几点内容："></a>明确几点内容：</h3><ol>
+<li><p>网络命名空间：</p>
+</li>
+<li><p>veth:虚拟网卡设备</p>
+</li>
+<li><p>lxc为我们已经做了什么：在一台服务器上通过LXC 可以提供多个相互隔离 的server contains 同时运行；LXC 通过chroot 提供独立的进程或者网络环境，用namespace 来实现多个容器环境的隔离，用cgroups 实现对每个容器资源的分配和限制：</p>
+<ol>
+<li>chroot: 创建一个虚拟的根目录文件系统 【实质还是调用底层的文件系统】，不过是简历一个虚拟的，可以跟其他容器的虚拟文件系统相互隔离；但共享底层的文件系统</li>
+<li>namespace : 命名空间可以提供一个进程相互隔离的独立网络空间，不同的容器间 进程pid可以相同，进程并不冲突影响；但可以共享底层的计算和存储(cpu + mem)</li>
+<li>cgroups: 实现了对容器的资源分配和限制，比如给容器1分配10core 30G 内存；那这个容器最多用这么大的资源；如果内存超过30G ，会启动swap，效率降低，也可能会被调度系统给kill掉</li>
+</ol>
+</li>
+</ol>
+<p>主机中进行容器网络配置文件路径：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd var/lib/lxc/&lt;lxc-name&gt;</span><br><span class="line">vim config</span><br></pre></td></tr></table></figure>
+<p>打开config文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"># Template used to create this container: /usr/share/lxc/templates/lxc-ubuntu</span><br><span class="line"># Parameters passed to the template:</span><br><span class="line"># For additional config options, please look at lxc.container.conf(5)</span><br><span class="line"># Uncomment the following line to support nesting containers:</span><br><span class="line">#lxc.include = /usr/share/lxc/config/nesting.conf</span><br><span class="line"># (Be aware this has security implications)</span><br><span class="line"># Common configuration</span><br><span class="line">lxc.include = /usr/share/lxc/config/ubuntu.common.conf</span><br><span class="line"># Container specific configuration</span><br><span class="line">lxc.arch = amd64</span><br><span class="line"># Network configuration</span><br><span class="line">lxc.net.0.type = veth</span><br><span class="line">#lxc.net.4.link = lxcbr0</span><br><span class="line">lxc.net.0.flags = up</span><br><span class="line">lxc.net.0.hwaddr = 00:16:3e:1b:c1:99</span><br><span class="line">lxc.rootfs.path = dir:/var/lib/lxc/lc3/rootfs</span><br><span class="line">lxc.uts.name = lc3</span><br><span class="line">~                     </span><br></pre></td></tr></table></figure>
+<p>修改link连接内容为空，并通过以下命令将该veth peer 放入另一主机的命名空间中实现两台主机的veth直连：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">#查看已有网络设备</span><br><span class="line">ip link</span><br><span class="line">#将container1的veth peer 放入container2中</span><br><span class="line">ip link set veth peer netns container2&#x27;s namespace</span><br><span class="line">#开启并进入container1</span><br><span class="line">lxc-start c4</span><br><span class="line">lxc-attach c4</span><br><span class="line">#查看容器ip</span><br><span class="line">ifconfig</span><br><span class="line">#测试能否ping通</span><br><span class="line">ping . . . . -c 4</span><br></pre></td></tr></table></figure>
+<h3 id="网络拓扑实现总结"><a href="#网络拓扑实现总结" class="headerlink" title="网络拓扑实现总结"></a>网络拓扑实现总结</h3><ol>
+<li>了解了Lxc的基本原理</li>
+<li>掌握了容器的基本操作可实现lxc容器的基础配置</li>
+<li>实现了网络拓扑主机间的直连</li>
+</ol>
+<h3 id="参考引用"><a href="#参考引用" class="headerlink" title="参考引用"></a>参考引用</h3><p><a target="_blank" rel="noopener" href="https://linuxcontainers.org/lxc/getting-started/">LXC官方文档</a><br><a target="_blank" rel="noopener" href="https://www.redhat.com/zh/topics/containers/whats-a-linux-container">Red Hat</a><br><a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/2145190?areaSource=&traceId=">ip、mac、路由</a><br><a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1922673">BGP路由协议</a><br><a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/2145211?areaSource=&traceId=">IP地址详解</a><br><a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1875669?areaSource=&traceId=">路由表</a><br><a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1824926?areaSource=&traceId=">计算机网络基础</a><br><a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/2171514?areaSource=103001.17&traceId=lNXhRrBWO9JL6VhzqNqo8">使用 Linux 网络虚拟化技术探究容器网络原理</a></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">Cresc.</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://2cc2.github.io/2023/05/02/LXC/">http://2cc2.github.io/2023/05/02/LXC/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://2cc2.github.io" target="_blank">C2のBLOG</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/LXC/">LXC</a></div><div class="post_share"><div class="social-share" data-image="https://i0.wp.com/www.overlookhorizon.com/wp-content/uploads/2020/04/DVZz1irVoAEUgG1-scaled.jpg?ssl=1" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2023/05/08/learnibging/"><img class="prev-cover" src="https://i0.wp.com/www.overlookhorizon.com/wp-content/uploads/2020/04/DVZz1irVoAEUgG1-scaled.jpg?ssl=1" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">learnibging</div></div></a></div><div class="next-post pull-right"><a href="/2023/04/23/%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%BB%BF%E7%9C%9F/"><img class="next-cover" src="http://www.hanwei.cn/wp-content/uploads/2019/03/1.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">计算机仿真系列(一)</div></div></a></div></nav><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div><div id="comment-switch"><span class="first-comment">V</span><span class="switch-btn"></span><span class="second-comment">a</span></div></div><div class="comment-wrap"><div></div><div></div><div></div><div></div><div></div><div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-info-avatar is-center"><img class="avatar-img" src="https://pica.zhimg.com/50/v2-375af5e86e94b88a2a6ba0bd7906c87f_720w.jpg?source=1940ef5c" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/><div class="author-info__name">Cresc.</div><div class="author-info__description">You are too full of life to be half-loved by someone.</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">7</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">7</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">2</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/2cc2"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/2cc2" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:2cc2mzd@gmail.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget" id="card-poem"><div id="poem_sentence"></div><div id="poem_info"><div id="poem_dynasty"></div><div id="poem_author"></div></div></div><script src="https://cdn.jsdelivr.net/npm/js-heo@1.0.11/poem/jinrishici.js" charset="utf-8"></script><script type="text/javascript">jinrishici.load(function(result) {
+var sentence = document.querySelector("#poem_sentence")
+var author = document.querySelector("#poem_author")
+var dynasty = document.querySelector("#poem_dynasty")
+
+var sentenceText = result.data.content
+sentenceText = sentenceText.substr(0, sentenceText.length - 1);
+sentence.innerHTML = sentenceText
+dynasty.innerHTML = result.data.origin.dynasty
+author.innerHTML = result.data.origin.author + '《' + result.data.origin.title + '》'
+});</script><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#NFV%E7%BD%91%E7%BB%9C%E6%8B%93%E6%89%91%E5%AE%9E%E7%8E%B0-LXC%E5%8F%8AFRR%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87%E5%8F%8A%E7%A0%94%E7%A9%B6"><span class="toc-number">1.</span> <span class="toc-text">NFV网络拓扑实现-LXC及FRR环境准备及研究</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A6%82%E8%BF%B0"><span class="toc-number">1.1.</span> <span class="toc-text">概述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%92%8C%E5%85%B6%E5%AE%83%E5%B7%A5%E5%85%B7%E4%B9%8B%E9%97%B4%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="toc-number">1.2.</span> <span class="toc-text">和其它工具之间的关系</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E5%8E%9F%E5%9B%A0"><span class="toc-number">1.2.1.</span> <span class="toc-text">使用原因</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFLXC%E9%A1%B9%E7%9B%AE"><span class="toc-number">1.2.2.</span> <span class="toc-text">什么是LXC项目</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%8E%AF%E5%A2%83"><span class="toc-number">1.2.3.</span> <span class="toc-text">虚拟机环境</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85lxc%E5%8F%8A%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE"><span class="toc-number">1.2.4.</span> <span class="toc-text">安装lxc及网络配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#FRR%E5%AE%89%E8%A3%85"><span class="toc-number">1.2.5.</span> <span class="toc-text">FRR安装</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#veth%E8%BF%9E%E6%8E%A5"><span class="toc-number">1.3.</span> <span class="toc-text">veth连接</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%98%8E%E7%A1%AE%E5%87%A0%E7%82%B9%E5%86%85%E5%AE%B9%EF%BC%9A"><span class="toc-number">1.3.1.</span> <span class="toc-text">明确几点内容：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BD%91%E7%BB%9C%E6%8B%93%E6%89%91%E5%AE%9E%E7%8E%B0%E6%80%BB%E7%BB%93"><span class="toc-number">1.3.2.</span> <span class="toc-text">网络拓扑实现总结</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E5%BC%95%E7%94%A8"><span class="toc-number">1.3.3.</span> <span class="toc-text">参考引用</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2023/05/09/PID-%E6%96%87%E6%A1%A3-%E7%BF%94/" title="PID-文档(翔)"><img src="https://i0.wp.com/www.overlookhorizon.com/wp-content/uploads/2020/04/DVZz1irVoAEUgG1-scaled.jpg?ssl=1" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="PID-文档(翔)"/></a><div class="content"><a class="title" href="/2023/05/09/PID-%E6%96%87%E6%A1%A3-%E7%BF%94/" title="PID-文档(翔)">PID-文档(翔)</a><time datetime="2023-05-09T09:03:19.000Z" title="发表于 2023-05-09 17:03:19">2023-05-09</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/05/09/%E4%BC%9A%E8%AE%AE%E7%BA%AA%E8%A6%815-7/" title="会议纪要5.7"><img src="https://i0.wp.com/www.overlookhorizon.com/wp-content/uploads/2020/04/DVZz1irVoAEUgG1-scaled.jpg?ssl=1" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="会议纪要5.7"/></a><div class="content"><a class="title" href="/2023/05/09/%E4%BC%9A%E8%AE%AE%E7%BA%AA%E8%A6%815-7/" title="会议纪要5.7">会议纪要5.7</a><time datetime="2023-05-09T08:59:20.000Z" title="发表于 2023-05-09 16:59:20">2023-05-09</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/05/08/learnibging/" title="learnibging"><img src="https://i0.wp.com/www.overlookhorizon.com/wp-content/uploads/2020/04/DVZz1irVoAEUgG1-scaled.jpg?ssl=1" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="learnibging"/></a><div class="content"><a class="title" href="/2023/05/08/learnibging/" title="learnibging">learnibging</a><time datetime="2023-05-08T07:23:57.000Z" title="发表于 2023-05-08 15:23:57">2023-05-08</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/05/02/LXC/" title="建立网络拓扑Linux虚拟容器准备-LXC"><img src="https://i0.wp.com/www.overlookhorizon.com/wp-content/uploads/2020/04/DVZz1irVoAEUgG1-scaled.jpg?ssl=1" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="建立网络拓扑Linux虚拟容器准备-LXC"/></a><div class="content"><a class="title" href="/2023/05/02/LXC/" title="建立网络拓扑Linux虚拟容器准备-LXC">建立网络拓扑Linux虚拟容器准备-LXC</a><time datetime="2023-05-02T15:29:29.000Z" title="发表于 2023-05-02 23:29:29">2023-05-02</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/04/23/%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%BB%BF%E7%9C%9F/" title="计算机仿真系列(一)"><img src="http://www.hanwei.cn/wp-content/uploads/2019/03/1.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="计算机仿真系列(一)"/></a><div class="content"><a class="title" href="/2023/04/23/%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%BB%BF%E7%9C%9F/" title="计算机仿真系列(一)">计算机仿真系列(一)</a><time datetime="2023-04-23T13:58:00.000Z" title="发表于 2023-04-23 21:58:00">2023-04-23</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('https://i0.wp.com/www.overlookhorizon.com/wp-content/uploads/2020/04/DVZz1irVoAEUgG1-scaled.jpg?ssl=1')"><div id="footer-wrap"><div class="copyright">&copy;2023 By Cresc.</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">敬希赐复,顺颂时祺</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">简</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div></div><hr/><div id="local-search-results"></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="/js/search/local-search.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"></div><script src="https://widget.qweather.net/simple/static/js/he-simple-common.js?v=2.0"></script><script async src="/js/weather.js"></script><canvas class="fireworks" mobile="true"></canvas><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/fireworks.min.js"></script><script defer="defer" id="fluttering_ribbon" mobile="true" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-fluttering-ribbon.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
