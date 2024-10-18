@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  
+  
+  
+  <entry>
+    <title>fffff</title>
+    <link href="/2024/10/15/fffff/"/>
+    <url>/2024/10/15/fffff/</url>
+    
+    <content type="html"><![CDATA[]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>Tree-sitter|First</title>
+    <link href="/2024/07/24/Tree-sitter/Tree-sitter/"/>
+    <url>/2024/07/24/Tree-sitter/Tree-sitter/</url>
+    
+    <content type="html"><![CDATA[<p>Tree-sitter是一个解析生成工具、增量解析库（意味着不用每一次增加内容都去重新生成整个树）同时它本身会对程序的Error进行最小化处理，做错误恢复以保证AST生成的可用性，同时提供了Queries的方式可以对AST进行查询以对程序进行分析使用。不是LSP、编译器、解释器和LP无关，LP关注的是语义层面的分析，Tree-sitter是一个框架去生成一个语法树，它只关注程序的文本为其生成语法树用于查询。</p><h2 id="对python程序做解析"><a href="#对python程序做解析" class="headerlink" title="对python程序做解析"></a>对python程序做解析</h2><h3 id="任务"><a href="#任务" class="headerlink" title="任务"></a>任务</h3><ul><li>得到python程序的AST</li><li>提取patch_function中的declaration(以函数为粒度)</li><li>提取patch_function中的被调用函数</li><li>提取patch_function中的变量及变量定义</li></ul><h3 id="初期遇到的问题及解决"><a href="#初期遇到的问题及解决" class="headerlink" title="初期遇到的问题及解决"></a>初期遇到的问题及解决</h3><ol><li>较快的理解业务实现逻辑，同时掌握tree-sitter的基本用法</li><li>对于C&#x2F;C++的fetch_contex实现的过程理解中对于函数粒度的概念产生了混淆,自行对函数粒度进行了解读但与项目的相关定义有一定的出入，</li><li>对于python，java ast结构的解析。</li></ol>]]></content>
+    
+    
+    <categories>
+      
+      <category>Tree-sitter</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>数据标注|主动学习</title>
+    <link href="/2024/06/06/%E6%95%B0%E6%8D%AE%E6%A0%87%E6%B3%A8/%E6%95%B0%E6%8D%AE%E6%A0%87%E6%B3%A8-%E4%B8%BB%E5%8A%A8%E5%AD%A6%E4%B9%A0/"/>
+    <url>/2024/06/06/%E6%95%B0%E6%8D%AE%E6%A0%87%E6%B3%A8/%E6%95%B0%E6%8D%AE%E6%A0%87%E6%B3%A8-%E4%B8%BB%E5%8A%A8%E5%AD%A6%E4%B9%A0/</url>
+    
+    <content type="html"><![CDATA[<hr><h2 id="总会有人做的。"><a href="#总会有人做的。" class="headerlink" title="总会有人做的。"></a>总会有人做的。</h2><h1 id="一、主动学习背景"><a href="#一、主动学习背景" class="headerlink" title="一、主动学习背景"></a>一、主动学习背景</h1><h2 id="1-1-概要"><a href="#1-1-概要" class="headerlink" title="1.1 概要"></a>1.1 概要</h2><ul><li><p><strong>出处：机器学习</strong>主要研究计算机如何利用经验数据提高自身性能。在监督学习中，数据的质量和数量直接决定模型的性能高低，监督学习不仅要求数据全部是标记好的，并且需要大量的数据，然而人工标注大量数据需要耗费巨大的时间和精力，一个更合理的方案是挑选一部分数据进行标注，这就要提到机器学习中的主动学习。</p></li><li><p><strong>主动学习目的：</strong> 是通过标记少量的数据训练处表现较好的模型。</p></li><li><p><strong>核心任务</strong>：是制定选择样本的标准，从而选择尽可能少的样本进行标注来选出一个好的学习模型。</p></li></ul><h2 id="1-2-主动学习的基本思想"><a href="#1-2-主动学习的基本思想" class="headerlink" title="1.2 主动学习的基本思想"></a>1.2 主动学习的基本思想</h2><ul><li><strong>A&#x3D;(C,Q,S,L,U)</strong>  </li><li>C：为一组或者一个分类器。  </li><li>L:是用于训练已标注的样本。  </li><li>Q:是查询函数，用于从未标注样本池U中查询信息量大的信息。  </li><li>S:是督导者，可以为U中样本标注正确的标签。  </li><li>U：未标记的样本池。</li></ul><p>学习者通过少量初始标记样本L开始学习，通过一定的查询函数Q选择出一个或一批最有用的样本，并向督导者询问标签，然后利用获得的新知识来训练分类器和进行下一轮查询。主动学习是一个循环的过程，直至达到某一停止准则为止。</p><h2 id="1-3-主动学习的步骤："><a href="#1-3-主动学习的步骤：" class="headerlink" title="1.3 主动学习的步骤："></a>1.3 主动学习的步骤：</h2><p>1）首先在未标记的数据集中选取少量样本进行标注，构成训练集；<br>2）选取训练模型，使用少量标注样本的训练集对模型进行训练，此时模型的性能不高；<br>3）使用训练好的模型预测未标注的样本；<br>4）定义查询策略（包括度量预测的不确定度以及应用于请求标注的查询策略），根据策略返回未标注样本的优先级评分，选择出的需要标注的数据，进行人工标注；<br>5）将新选择的数据加入到训练集中更新训练集，使用更新后的训练集来训练模型；<br>6）判断模型是否达到停止准则，若未达到停止标准，则继续利用查询策略选择需要被标记的样本并进行人工标注，循环第4-5-6步，直到达到标准后停止。</p><h2 id="1-4-主动学习VS半监督学习"><a href="#1-4-主动学习VS半监督学习" class="headerlink" title="1.4 主动学习VS半监督学习"></a>1.4 主动学习VS半监督学习</h2><p>半监督学习和直推学习(transductive learning)以及主动学习，都属于利用未标记数据的学习技术，但基本思想还是有区别的。主动学习的“主动”，指的是主动提出标注请求，也就是选出需要标注的数据，是需要交互进行的。而半监督学习，特指的是学习算法不需要人工的干预，基于自身对未标记数据加以利用，过程中是不依赖于人工标记的。</p><h1 id="二、应用场景"><a href="#二、应用场景" class="headerlink" title="二、应用场景"></a>二、应用场景</h1><h2 id="1-基于数据池的主动学习"><a href="#1-基于数据池的主动学习" class="headerlink" title="1.基于数据池的主动学习"></a>1.基于数据池的主动学习</h2><p>是最常见的一种场景，给定未标记的样本数据池，通过算法每次从未标记数据池中选择最具代表性的样本，交给标注者标注，然后向训练集中添加这些新的样本更新训练集，基于新训练集继续更新模型，进入下一次迭代。</p><h2 id="2-基于数据流的主动学习"><a href="#2-基于数据流的主动学习" class="headerlink" title="2.基于数据流的主动学习"></a>2.基于数据流的主动学习</h2><p>基于数据流的主动学习将未标记的数据逐一通过选择算法决定是否需要标注当前样本，若不选择则丢弃样本。该场景适用于数据量较大且数据源是流式而又无法保存下来所有数据的情况。</p><h2 id="3-基于合成样本查询的主动学习"><a href="#3-基于合成样本查询的主动学习" class="headerlink" title="3.基于合成样本查询的主动学习"></a>3.基于合成样本查询的主动学习</h2><p>基于合成样本查询的主动学习并不是从已有的样本中选择来查询标记信息，而是直接从特征空间里合成出新的样本进行查询。这种方法可以解决标记数据难以获得的问题，但是由于新和成的样本可能是特征空间里任意取值组合产生的，因此在某些应用问题中可能导致人类专家也无法标注这些合成样本。例如在图像分类任务中，任意像素取值合成的图片可能并不能呈现清晰的语义，因此合成样本的质量和真实性可能会对算法的效果产生影响。  三种应用场景实际上对应着三种主动学习的基础策略。</p><h1 id="三、主动学习策略"><a href="#三、主动学习策略" class="headerlink" title="三、主动学习策略"></a>三、主动学习策略</h1><h2 id="3-1常见算法"><a href="#3-1常见算法" class="headerlink" title="3.1常见算法"></a>3.1常见算法</h2><ul><li>首先需要做的是需要手动标记该数据的一个非常小的子样本。</li><li>进行模型训练帮助我们了解参数空间的哪些领域需要首标记。</li><li>训练模型后，该模型用于预测每个剩余的未标记数据点的类别。</li><li>根据模型的预测，在每个未标记的数据点上选择分数一旦选择了对标签进行优先排序的最佳方法。</li><li>在基于优先级分数进行标记的新标签数据集上训练新模型。一旦在数据子集上训练完新模型，未标记的数据点就可以在模型中运行并更新优先级分值，继续标记。</li><li>通过这种方式，随着模型变得越来越好，我们可以不断优化标签策略。</li></ul><h1 id="四、常用查询策略"><a href="#四、常用查询策略" class="headerlink" title="四、常用查询策略"></a>四、常用查询策略</h1><h2 id="1-基于信息量的查询策略"><a href="#1-基于信息量的查询策略" class="headerlink" title="1.基于信息量的查询策略"></a>1.基于信息量的查询策略</h2><p>最常见的一种，基本思想是选择那些能最大限度减小当前模型不确定性的样本进行查询。具体而言，信息量又可以通过模型预测的置信度、模型错误率下降期望、委员会投票等多种形式进行度量。这类方法选择样本时只基于现有的已标记样本，忽略了大量的未标记样本中蕴含的数据分部信息，可能导采样偏差问题。</p><h2 id="2-基于代表性的查询策略"><a href="#2-基于代表性的查询策略" class="headerlink" title="2.基于代表性的查询策略"></a>2.基于代表性的查询策略</h2><p>倾向于选择那些更能刻画数据整体分布的未标记数据进行标记查询。这些方法往往通过聚类或密度估计等无监督技术来评估样本的代表性，由于忽略了已标记样本因此整体性能也可能会依赖于聚类结果的好坏。</p><h2 id="3-综合多种准则的查询策略"><a href="#3-综合多种准则的查询策略" class="headerlink" title="3.综合多种准则的查询策略"></a>3.综合多种准则的查询策略</h2><p>能够同时考虑选择样本的信息量和代表性，能够有效避免采样偏差和依赖聚类结果的问题。近年来已有研究者从不同角度提出综合多种查询准则的主动学习方法，并展示出较好的实验性能。</p><h2 id="4-1-1不确定性度量的查询策略"><a href="#4-1-1不确定性度量的查询策略" class="headerlink" title="4.1.1不确定性度量的查询策略"></a>4.1.1不确定性度量的查询策略</h2><h3 id="（1）不确定性采样的查询"><a href="#（1）不确定性采样的查询" class="headerlink" title="（1）不确定性采样的查询"></a>（1）不确定性采样的查询</h3><ul><li><strong>最小置信度（Least confidence）</strong><br>选择那些最大概率最小的样本进行标注。即对于每个数据点的选择概率的最大值从小到大进行排序。(看最有可能被分类的情况下各样本被成功分类的概率最小即特征最不明显的)。<br>最小置信度方法考虑那些模型预测概率最大但是可信度较低的样本数据。是最简单，最常用的方法，它通过置信度排序以最低的置信度对其预测的样本进行采样。</li><li><strong>边际抽样（Margin Sampling）</strong><br>该方法与最小置信度法类似，不同在于该方法考虑最大概率和第二大概率的差异。边际抽样选择那些极容易被判定成两类的样本数据，这些数据被判定成两类的概率相差不大，即选择模型预测最大和第二大的概率差值最小的样本。<br>参考博客链接：</li><li><strong>熵</strong><br>熵指的是系统的混乱程度或无序程度。熵越大反映系统不确定性越大。因此，选择熵大的样本进行标注有利于提升模型性能。</li></ul><h3 id="2-基于委员会的查询（Query-By-Commitee）"><a href="#2-基于委员会的查询（Query-By-Commitee）" class="headerlink" title="(2)基于委员会的查询（Query-By-Commitee）"></a>(2)基于委员会的查询（Query-By-Commitee）</h3><p>不确定性采样的查询策略只使用单个模型，基于委员会的查询考虑多个模型。类似于集成学习。它通过多个模型进行投票的方式选择出较为难区分的数据。包括两个步骤：首先使用多个模型构成委员会；然后委员会中所有模型对所有未标记样本进行预测，筛选出投票最不一致的样本进行标注。</p><ul><li><p><strong>投票熵（Vote Entropy）</strong><br>当多个模型将样本都投票为某一类，代表该样本容易区分，当多个模型对某个样本的投票结果都不一致时，代表带样本难以区分，需要重点关注。</p></li><li><p><strong>平均KL散度（Average KL Divergence）</strong><br>KL散度可以衡量两个概率分布之间的“距离”，也就是两个概率分布之间的相似程度，因此可以使用KL散度计算出偏差较大的数据样本。</p></li><li><p><strong>模型变化期望（Expected Model Change）</strong><br>模型错误率下降越多证明模型越好，让模型变化最大可以选择使得梯度变化最大的样本数据。</p></li><li><p><strong>基于误差减少的查询</strong><br>选择那些通过增加一个样本就使得 loss函数减少最多的样本数据。</p></li><li><p><strong>基于方差减少的查询</strong><br>选择方差降低最多的样本数据。</p></li><li><p><strong>基于密度权重减少的查询</strong><br>当数据分布不均匀时，某个数据可能位于稀疏区或者是异常点，不太适合作为主动学习标注的样本，或者数据具有明显的聚类结构，即不同类别的数据点在特征空间中有较大的区分度时，使用密度权重可以更准确地反映数据点的重要性和捕捉聚类这样的结构。这时考虑那些稠密的较难区分的数据点价值更大。</p></li></ul><h1 id="五、实践"><a href="#五、实践" class="headerlink" title="五、实践"></a>五、实践</h1><h2 id="回归预测"><a href="#回归预测" class="headerlink" title="回归预测"></a>回归预测</h2><h2 id="分类任务"><a href="#分类任务" class="headerlink" title="分类任务"></a>分类任务</h2><ul><li><a href="https://blog.csdn.net/weixin_46428351/article/details/136396293">https://blog.csdn.net/weixin_46428351/article/details/136396293</a></li><li><a href="https://blog.csdn.net/m0_63642362/article/details/127705711">https://blog.csdn.net/m0_63642362/article/details/127705711</a></li></ul>]]></content>
+    
+    
+    <categories>
+      
+      <category>数据标注</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Labeling</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>威胁情报相关协议类型</title>
+    <link href="/2024/05/27/webLearning/%E5%A8%81%E8%83%81%E6%83%85%E6%8A%A5%E7%9B%B8%E5%85%B3%E5%8D%8F%E8%AE%AE%E7%B1%BB%E5%9E%8B/"/>
+    <url>/2024/05/27/webLearning/%E5%A8%81%E8%83%81%E6%83%85%E6%8A%A5%E7%9B%B8%E5%85%B3%E5%8D%8F%E8%AE%AE%E7%B1%BB%E5%9E%8B/</url>
+    
+    <content type="html"><![CDATA[<ol><li><p><strong>STIX（Structured Threat Information Expression）</strong>：</p><ul><li><strong>类型</strong>：数据表示标准</li><li><strong>描述</strong>：STIX 是一种结构化语言，用于表示和交换网络威胁情报信息。它允许组织描述威胁活动、受害者信息、攻击手法等。</li><li><strong>链接</strong>：<a href="https://oasis-open.github.io/cti-documentation/stix/intro.html">STIX 官方网站</a></li></ul></li><li><p><strong>TAXII（Trusted Automated Exchange of Indicator Information）</strong>：</p><ul><li><strong>类型</strong>：数据传输协议</li><li><strong>描述</strong>：TAXII 是 STIX 数据的传输机制，专门设计用于自动化和安全地共享威胁情报。它提供了不同的传输模式，包括推送和拉取模式。</li><li><strong>链接</strong>：<a href="https://oasis-open.github.io/cti-documentation/taxii/intro.html">TAXII 官方网站</a></li></ul></li><li><p><strong>CybOX（Cyber Observable eXpression）</strong>：</p><ul><li><strong>类型</strong>：数据表示标准</li><li><strong>描述</strong>：CybOX 是一种用于描述网络活动中可观测事件的标准化语言，通常与 STIX 结合使用。</li><li><strong>链接</strong>：<a href="https://cyboxproject.github.io/">CybOX 官方网站</a></li></ul></li><li><p><strong>OpenIOC（Open Indicators of Compromise）</strong>：</p><ul><li><strong>类型</strong>：数据表示标准</li><li><strong>描述</strong>：OpenIOC 是一种用于描述入侵检测指标（IOC）的标准，帮助安全团队共享和交换检测数据。</li><li><strong>链接</strong>：<a href="https://www.fireeye.com/services/freeware/openioc.html">OpenIOC 官方网站</a></li></ul></li><li><p><strong>MAEC（Malware Attribute Enumeration and Characterization）</strong>：</p><ul><li><strong>类型</strong>：数据表示标准</li><li><strong>描述</strong>：MAEC 是一种用于描述恶意软件属性和行为的标准化语言。</li><li><strong>链接</strong>：<a href="https://maecproject.github.io/">MAEC 官方网站</a></li></ul></li><li><p><strong>IDMEF（Intrusion Detection Message Exchange Format）</strong>：</p><ul><li><strong>类型</strong>：消息格式标准</li><li><strong>描述</strong>：IDMEF 是一种用于入侵检测系统（IDS）之间数据交换的标准格式，为描述和传输入侵检测事件提供框架。</li><li><strong>链接</strong>：<a href="https://datatracker.ietf.org/doc/html/rfc4765">IDMEF 信息</a></li></ul></li><li><p><strong>IODEF（Incident Object Description Exchange Format）</strong>：</p><ul><li><strong>类型</strong>：数据表示标准</li><li><strong>描述</strong>：IODEF 是一种用于描述和交换网络安全事件信息的标准格式，主要用于计算机安全事件响应团队（CSIRT）之间的通信。</li><li><strong>链接</strong>：<a href="https://datatracker.ietf.org/doc/html/rfc5070">IODEF 信息</a></li></ul></li><li><p><strong>CAPEC（Common Attack Pattern Enumeration and Classification）</strong>：</p><ul><li><strong>类型</strong>：分类系统</li><li><strong>描述</strong>：CAPEC 是一种用于描述和分类网络攻击模式的系统，帮助识别和防范常见的攻击技术和策略。</li><li><strong>链接</strong>：<a href="https://capec.mitre.org/">CAPEC 官方网站</a></li></ul></li></ol>]]></content>
+    
+    
+    <categories>
+      
+      <category>webLearning</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>怪东西</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>Min-L ezjaba</title>
+    <link href="/2024/05/24/webLearning/Min-L%20ezjaba/"/>
+    <url>/2024/05/24/webLearning/Min-L%20ezjaba/</url>
+    
+    <content type="html"><![CDATA[<p>涉及java反序列化利用链，上来就是Java安全根本不会做。从头学一下吧。。。（先列着提纲有时间就补</p><h2 id="Java本地调试和远程调试技巧"><a href="#Java本地调试和远程调试技巧" class="headerlink" title="Java本地调试和远程调试技巧"></a>Java本地调试和远程调试技巧</h2><p>本地调试</p><p>远程调试</p><h2 id="Java反编译技巧"><a href="#Java反编译技巧" class="headerlink" title="Java反编译技巧"></a>Java反编译技巧</h2><h2 id="Java安全基础概念之反射与ClassLoader"><a href="#Java安全基础概念之反射与ClassLoader" class="headerlink" title="Java安全基础概念之反射与ClassLoader"></a>Java安全基础概念之反射与ClassLoader</h2><h2 id="从冰蝎来看目前webshell的实现原理"><a href="#从冰蝎来看目前webshell的实现原理" class="headerlink" title="从冰蝎来看目前webshell的实现原理"></a>从冰蝎来看目前webshell的实现原理</h2><h2 id="Java反序列化基础"><a href="#Java反序列化基础" class="headerlink" title="Java反序列化基础"></a>Java反序列化基础</h2><h2 id="CommonCollections利用链分析介绍上"><a href="#CommonCollections利用链分析介绍上" class="headerlink" title="CommonCollections利用链分析介绍上"></a>CommonCollections利用链分析介绍上</h2><h2 id="CommonCollections利用链分析介绍下"><a href="#CommonCollections利用链分析介绍下" class="headerlink" title="CommonCollections利用链分析介绍下"></a>CommonCollections利用链分析介绍下</h2><h2 id="JNDI注入原理与fastjson漏洞实践"><a href="#JNDI注入原理与fastjson漏洞实践" class="headerlink" title="JNDI注入原理与fastjson漏洞实践"></a>JNDI注入原理与fastjson漏洞实践</h2><h2 id="Weblogic反序列化漏洞分析"><a href="#Weblogic反序列化漏洞分析" class="headerlink" title="Weblogic反序列化漏洞分析"></a>Weblogic反序列化漏洞分析</h2><h2 id="Java命令回显技术研究"><a href="#Java命令回显技术研究" class="headerlink" title="Java命令回显技术研究"></a>Java命令回显技术研究</h2><h2 id="Java内存马技术研究"><a href="#Java内存马技术研究" class="headerlink" title="Java内存马技术研究"></a>Java内存马技术研究</h2><h2 id="RASP技术研究"><a href="#RASP技术研究" class="headerlink" title="RASP技术研究"></a>RASP技术研究</h2><h2 id="基于CodeQL的自动化代码审计技术研究上"><a href="#基于CodeQL的自动化代码审计技术研究上" class="headerlink" title="基于CodeQL的自动化代码审计技术研究上"></a>基于CodeQL的自动化代码审计技术研究上</h2><h2 id="基于CodeQL的自动化代码审计技术研究下"><a href="#基于CodeQL的自动化代码审计技术研究下" class="headerlink" title="基于CodeQL的自动化代码审计技术研究下"></a>基于CodeQL的自动化代码审计技术研究下</h2>]]></content>
+    
+    
+    <categories>
+      
+      <category>webLearning</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>week1</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>sql注入</title>
+    <link href="/2024/05/24/webLearning/sql%E6%B3%A8%E5%85%A5/"/>
+    <url>/2024/05/24/webLearning/sql%E6%B3%A8%E5%85%A5/</url>
+    
+    <content type="html"><![CDATA[<h4 id="1-什么是sql注入？"><a href="#1-什么是sql注入？" class="headerlink" title="1.什么是sql注入？"></a>1.什么是sql注入？</h4><p>　　<strong>SQL注入：</strong>是通过把SQL命令插入到Web表单递交或输入域名、页面请求的查询字符串，最终达到欺骗服务器执行恶意的SQL命令。当应用程序使用输入内容来构造动态sql语句以访问数据库时，就会发生sql注入攻击。如果代码使用存储过程，而这些存储过程作为包含未筛选的用户输入的字符串来传递，也会发生sql注入。攻击者通过SQL注入攻击可以拿到网站数据库的访问权限，之后他们就可以拿到网站数据库中所有的数据，恶意黑客可以通过SQL注入功能篡改数据库中的数据甚至会把数据库中的数据毁坏掉。</p><pre><code class="hljs">**SQL注入产生的原因：**程序开发过程中不注意规范书写sql语句和对特殊字符进行过滤，导致客户端可以通过全局变量POST和GET提交一些sql语句正常执行。</code></pre><p>CTFSHOW|Web2</p><p>手动注入：<br>sqlmap注入：<br>burp suite 抓包得到刻录机JFK撒旦KFJKS的JFK了解DKJNMDCN</p><p>就节快乐的方式FDKJGFKLJdsfjkfdfajdkglgjkahjh</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>webLearning</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>week1</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>Arduino+蓝牙</title>
+    <link href="/2024/02/26/%E5%B5%8C%E5%85%A5%E5%BC%8F/Arduino-%E8%93%9D%E7%89%99/"/>
+    <url>/2024/02/26/%E5%B5%8C%E5%85%A5%E5%BC%8F/Arduino-%E8%93%9D%E7%89%99/</url>
+    
+    <content type="html"><![CDATA[<hr><h1 id="Arduino-蓝牙"><a href="#Arduino-蓝牙" class="headerlink" title="Arduino+蓝牙"></a>Arduino+蓝牙</h1><p>Aduino+JDY-31-SPP蓝牙透传进行舵机控制</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>嵌入式</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>嵌入式</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>杂记</title>
+    <link href="/2024/02/26/%E6%9D%82%E8%AE%B0/%E6%9D%82%E8%AE%B0/"/>
+    <url>/2024/02/26/%E6%9D%82%E8%AE%B0/%E6%9D%82%E8%AE%B0/</url>
+    
+    <content type="html"><![CDATA[<h1 id="深度模型水印"><a href="#深度模型水印" class="headerlink" title="深度模型水印"></a>深度模型水印</h1><h2 id="水印分类"><a href="#水印分类" class="headerlink" title="水印分类"></a>水印分类</h2><h3 id="白盒"><a href="#白盒" class="headerlink" title="白盒"></a>白盒</h3><p>模型公开部分代码参数。</p><h3 id="黑盒"><a href="#黑盒" class="headerlink" title="黑盒"></a>黑盒</h3><p>模型不公开通过特殊指令生成特殊输出来验证，一般是通过构造触发集生成结果具有哈希的单向性，抵抗混淆攻击。</p><h3 id="无盒"><a href="#无盒" class="headerlink" title="无盒"></a>无盒</h3><p>模型不在场进行验证，输出中自带水印。</p><h2 id="水印作用"><a href="#水印作用" class="headerlink" title="水印作用"></a>水印作用</h2><p>版权问题防止模型窃取。</p><h2 id="多媒体水印，AIGC，模型水印区别"><a href="#多媒体水印，AIGC，模型水印区别" class="headerlink" title="多媒体水印，AIGC，模型水印区别"></a>多媒体水印，AIGC，模型水印区别</h2><h1 id="AIOT"><a href="#AIOT" class="headerlink" title="AIOT"></a>AIOT</h1><h2 id="音频攻击"><a href="#音频攻击" class="headerlink" title="音频攻击"></a>音频攻击</h2><p>记不清了（晕了已经</p><h1 id="人工智能攻防关键技术研究"><a href="#人工智能攻防关键技术研究" class="headerlink" title="人工智能攻防关键技术研究"></a>人工智能攻防关键技术研究</h1><h2 id="模型后门检测"><a href="#模型后门检测" class="headerlink" title="模型后门检测"></a>模型后门检测</h2><p>通过特定像素区域的差分计算获得trigger和mask好像是用来还原图片的(直接变换的方式)<br>融合的那部分忘了。。。</p><h2 id="模型探知"><a href="#模型探知" class="headerlink" title="模型探知"></a>模型探知</h2><p>对抗样本在同模型下具有相同效果，准确率相差不大，通过设置对抗样本进行对方模型的目标检测。</p><h2 id="模型训练数据删除"><a href="#模型训练数据删除" class="headerlink" title="模型训练数据删除"></a>模型训练数据删除</h2><p>通过空间换时间，设置还原点训练模型，但是只用在了一般的模型上举例的是线性模型，决策树，和神经网络。但是大模型在实际可行性上不可行。<br>可以用于主动和被动遗忘。</p><h1 id="人工智能大模型运用"><a href="#人工智能大模型运用" class="headerlink" title="人工智能大模型运用"></a>人工智能大模型运用</h1><p>通过训练模型实现辅助性工具和模型训练开发环境，以及知识库bot。</p><h1 id="恶意安全秘密共享混洗协议"><a href="#恶意安全秘密共享混洗协议" class="headerlink" title="恶意安全秘密共享混洗协议"></a>恶意安全秘密共享混洗协议</h1><h1 id="LDR-内核听不懂一点"><a href="#LDR-内核听不懂一点" class="headerlink" title="LDR(内核听不懂一点)"></a>LDR(内核听不懂一点)</h1><h2 id="孪生驱动"><a href="#孪生驱动" class="headerlink" title="孪生驱动"></a>孪生驱动</h2><p>孪生驱动就听懂了个沙箱隔离放到SeCore中同时降低对TCB的影响，确保安全内核轻量。普通系统和安全系统的一个孪生应该是这个意思。</p><h1 id="隐私定义？"><a href="#隐私定义？" class="headerlink" title="隐私定义？"></a>隐私定义？</h1><p>主观上的概念，主要是看数据对于一些用户是重要的是私密的，但在应用层面，在一定的应用场景下是需要让出一定的隐私信息获取相当的权益的实际上，这种观点认为隐私并不是说对于数据的绝对保密，而是动态的随着不同应用场景和权力需要进行的主观划分。（那意思不就是在一定的应用场景下对认为原来隐私的数据不是隐私的？？？我绷，隐私保护感觉变成了信任问题。。</p><h1 id="差分隐私度量问题？"><a href="#差分隐私度量问题？" class="headerlink" title="差分隐私度量问题？"></a>差分隐私度量问题？</h1><p>密码学100%,联邦学习差分隐私比较低，TE在中间。。</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>杂记</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>杂记</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>Obsidian</title>
+    <link href="/2024/02/15/%E6%9D%82%E8%AE%B0/Obsidian/"/>
+    <url>/2024/02/15/%E6%9D%82%E8%AE%B0/Obsidian/</url>
+    
+    <content type="html"><![CDATA[<p>大一下载下不出，大三还是来补了坑。</p><h2 id="主要目的"><a href="#主要目的" class="headerlink" title="主要目的"></a>主要目的</h2><ol><li>做笔记（永远在找记笔记的软件obsidian-&gt;vscode-&gt;obsidian,做不做笔记再说</li><li>弥补一下大一错过的遗憾</li><li>尝试一下双向链接是不是真的好（记得一次晚上回宿舍，dw和tlbro提到</li></ol><h2 id="食用方案"><a href="#食用方案" class="headerlink" title="食用方案"></a>食用方案</h2><p>Obsidian(笔记)+远程同步+pad(看)</p><h2 id="工作流"><a href="#工作流" class="headerlink" title="工作流"></a>工作流</h2><h3 id="Obsidian"><a href="#Obsidian" class="headerlink" title="Obsidian"></a>Obsidian</h3><p>进来新建文件夹构建完，新建文件发现就是在根目录下，感觉不对劲。肤浅了，格局打开不需要管理自动建立链接才是它的优点。现在使用的#tag标记功能已经感觉到爽感了。打算先写一阵子再更行使用体验。</p><h3 id="远程同步"><a href="#远程同步" class="headerlink" title="远程同步"></a>远程同步</h3><p>需求上来说暂时还不需要，obsidian本身是离线的（懒</p><h3 id="pad"><a href="#pad" class="headerlink" title="pad"></a>pad</h3><p>安装了还没咋用过。。。。</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>杂记</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>笔记</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>do something</title>
+    <link href="/2024/02/15/TODO/"/>
+    <url>/2024/02/15/TODO/</url>
+    
+    <content type="html"><![CDATA[<p>TO DO List</p>]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  
+</search>

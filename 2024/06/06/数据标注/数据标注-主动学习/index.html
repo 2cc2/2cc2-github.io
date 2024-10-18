@@ -1,0 +1,715 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="https://cdn.jsdelivr.net/gh/2cc2/Image_bed/C2_IMG/dc829e8f4083362ad6fb0f20c5f81adf.jpg">
+  <link rel="icon" href="https://cdn.jsdelivr.net/gh/2cc2/Image_bed/C2_IMG/dc829e8f4083362ad6fb0f20c5f81adf.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="DJocker">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="总会有人做的。一、主动学习背景1.1 概要 出处：机器学习主要研究计算机如何利用经验数据提高自身性能。在监督学习中，数据的质量和数量直接决定模型的性能高低，监督学习不仅要求数据全部是标记好的，并且需要大量的数据，然而人工标注大量数据需要耗费巨大的时间和精力，一个更合理的方案是挑选一部分数据进行标注，这就要提到机器学习中的主动学习。  主动学习目的： 是通过标记少量的数据训练处表现较好的模型。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据标注|主动学习">
+<meta property="og:url" content="http://example.com/2024/06/06/%E6%95%B0%E6%8D%AE%E6%A0%87%E6%B3%A8/%E6%95%B0%E6%8D%AE%E6%A0%87%E6%B3%A8-%E4%B8%BB%E5%8A%A8%E5%AD%A6%E4%B9%A0/index.html">
+<meta property="og:site_name" content="CreascのBlog">
+<meta property="og:description" content="总会有人做的。一、主动学习背景1.1 概要 出处：机器学习主要研究计算机如何利用经验数据提高自身性能。在监督学习中，数据的质量和数量直接决定模型的性能高低，监督学习不仅要求数据全部是标记好的，并且需要大量的数据，然而人工标注大量数据需要耗费巨大的时间和精力，一个更合理的方案是挑选一部分数据进行标注，这就要提到机器学习中的主动学习。  主动学习目的： 是通过标记少量的数据训练处表现较好的模型。">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2024-06-06T08:15:36.000Z">
+<meta property="article:modified_time" content="2024-10-16T08:25:53.015Z">
+<meta property="article:author" content="DJocker">
+<meta property="article:tag" content="Labeling">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>数据标注|主动学习 - CreascのBlog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.1.1"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>DJoker</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>Home</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>Archives</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>Categories</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>Tags</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>About</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>Links</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="数据标注|主动学习"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-06-06 16:15" pubdate>
+          June 6, 2024 pm
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2.6k words
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          23 mins
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">数据标注|主动学习</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <hr>
+<h2 id="总会有人做的。"><a href="#总会有人做的。" class="headerlink" title="总会有人做的。"></a>总会有人做的。</h2><h1 id="一、主动学习背景"><a href="#一、主动学习背景" class="headerlink" title="一、主动学习背景"></a>一、主动学习背景</h1><h2 id="1-1-概要"><a href="#1-1-概要" class="headerlink" title="1.1 概要"></a>1.1 概要</h2><ul>
+<li><p><strong>出处：机器学习</strong>主要研究计算机如何利用经验数据提高自身性能。在监督学习中，数据的质量和数量直接决定模型的性能高低，监督学习不仅要求数据全部是标记好的，并且需要大量的数据，然而人工标注大量数据需要耗费巨大的时间和精力，一个更合理的方案是挑选一部分数据进行标注，这就要提到机器学习中的主动学习。</p>
+</li>
+<li><p><strong>主动学习目的：</strong> 是通过标记少量的数据训练处表现较好的模型。</p>
+</li>
+<li><p><strong>核心任务</strong>：是制定选择样本的标准，从而选择尽可能少的样本进行标注来选出一个好的学习模型。</p>
+</li>
+</ul>
+<h2 id="1-2-主动学习的基本思想"><a href="#1-2-主动学习的基本思想" class="headerlink" title="1.2 主动学习的基本思想"></a>1.2 主动学习的基本思想</h2><ul>
+<li><strong>A&#x3D;(C,Q,S,L,U)</strong>  </li>
+<li>C：为一组或者一个分类器。  </li>
+<li>L:是用于训练已标注的样本。  </li>
+<li>Q:是查询函数，用于从未标注样本池U中查询信息量大的信息。  </li>
+<li>S:是督导者，可以为U中样本标注正确的标签。  </li>
+<li>U：未标记的样本池。</li>
+</ul>
+<p>学习者通过少量初始标记样本L开始学习，通过一定的查询函数Q选择出一个或一批最有用的样本，并向督导者询问标签，然后利用获得的新知识来训练分类器和进行下一轮查询。主动学习是一个循环的过程，直至达到某一停止准则为止。</p>
+<h2 id="1-3-主动学习的步骤："><a href="#1-3-主动学习的步骤：" class="headerlink" title="1.3 主动学习的步骤："></a>1.3 主动学习的步骤：</h2><p>1）首先在未标记的数据集中选取少量样本进行标注，构成训练集；<br>2）选取训练模型，使用少量标注样本的训练集对模型进行训练，此时模型的性能不高；<br>3）使用训练好的模型预测未标注的样本；<br>4）定义查询策略（包括度量预测的不确定度以及应用于请求标注的查询策略），根据策略返回未标注样本的优先级评分，选择出的需要标注的数据，进行人工标注；<br>5）将新选择的数据加入到训练集中更新训练集，使用更新后的训练集来训练模型；<br>6）判断模型是否达到停止准则，若未达到停止标准，则继续利用查询策略选择需要被标记的样本并进行人工标注，循环第4-5-6步，直到达到标准后停止。</p>
+<h2 id="1-4-主动学习VS半监督学习"><a href="#1-4-主动学习VS半监督学习" class="headerlink" title="1.4 主动学习VS半监督学习"></a>1.4 主动学习VS半监督学习</h2><p>半监督学习和直推学习(transductive learning)以及主动学习，都属于利用未标记数据的学习技术，但基本思想还是有区别的。主动学习的“主动”，指的是主动提出标注请求，也就是选出需要标注的数据，是需要交互进行的。而半监督学习，特指的是学习算法不需要人工的干预，基于自身对未标记数据加以利用，过程中是不依赖于人工标记的。</p>
+<h1 id="二、应用场景"><a href="#二、应用场景" class="headerlink" title="二、应用场景"></a>二、应用场景</h1><h2 id="1-基于数据池的主动学习"><a href="#1-基于数据池的主动学习" class="headerlink" title="1.基于数据池的主动学习"></a>1.基于数据池的主动学习</h2><p>是最常见的一种场景，给定未标记的样本数据池，通过算法每次从未标记数据池中选择最具代表性的样本，交给标注者标注，然后向训练集中添加这些新的样本更新训练集，基于新训练集继续更新模型，进入下一次迭代。</p>
+<h2 id="2-基于数据流的主动学习"><a href="#2-基于数据流的主动学习" class="headerlink" title="2.基于数据流的主动学习"></a>2.基于数据流的主动学习</h2><p>基于数据流的主动学习将未标记的数据逐一通过选择算法决定是否需要标注当前样本，若不选择则丢弃样本。该场景适用于数据量较大且数据源是流式而又无法保存下来所有数据的情况。</p>
+<h2 id="3-基于合成样本查询的主动学习"><a href="#3-基于合成样本查询的主动学习" class="headerlink" title="3.基于合成样本查询的主动学习"></a>3.基于合成样本查询的主动学习</h2><p>基于合成样本查询的主动学习并不是从已有的样本中选择来查询标记信息，而是直接从特征空间里合成出新的样本进行查询。这种方法可以解决标记数据难以获得的问题，但是由于新和成的样本可能是特征空间里任意取值组合产生的，因此在某些应用问题中可能导致人类专家也无法标注这些合成样本。例如在图像分类任务中，任意像素取值合成的图片可能并不能呈现清晰的语义，因此合成样本的质量和真实性可能会对算法的效果产生影响。  三种应用场景实际上对应着三种主动学习的基础策略。</p>
+<h1 id="三、主动学习策略"><a href="#三、主动学习策略" class="headerlink" title="三、主动学习策略"></a>三、主动学习策略</h1><h2 id="3-1常见算法"><a href="#3-1常见算法" class="headerlink" title="3.1常见算法"></a>3.1常见算法</h2><ul>
+<li>首先需要做的是需要手动标记该数据的一个非常小的子样本。</li>
+<li>进行模型训练帮助我们了解参数空间的哪些领域需要首标记。</li>
+<li>训练模型后，该模型用于预测每个剩余的未标记数据点的类别。</li>
+<li>根据模型的预测，在每个未标记的数据点上选择分数一旦选择了对标签进行优先排序的最佳方法。</li>
+<li>在基于优先级分数进行标记的新标签数据集上训练新模型。一旦在数据子集上训练完新模型，未标记的数据点就可以在模型中运行并更新优先级分值，继续标记。</li>
+<li>通过这种方式，随着模型变得越来越好，我们可以不断优化标签策略。</li>
+</ul>
+<h1 id="四、常用查询策略"><a href="#四、常用查询策略" class="headerlink" title="四、常用查询策略"></a>四、常用查询策略</h1><h2 id="1-基于信息量的查询策略"><a href="#1-基于信息量的查询策略" class="headerlink" title="1.基于信息量的查询策略"></a>1.基于信息量的查询策略</h2><p>最常见的一种，基本思想是选择那些能最大限度减小当前模型不确定性的样本进行查询。具体而言，信息量又可以通过模型预测的置信度、模型错误率下降期望、委员会投票等多种形式进行度量。这类方法选择样本时只基于现有的已标记样本，忽略了大量的未标记样本中蕴含的数据分部信息，可能导采样偏差问题。</p>
+<h2 id="2-基于代表性的查询策略"><a href="#2-基于代表性的查询策略" class="headerlink" title="2.基于代表性的查询策略"></a>2.基于代表性的查询策略</h2><p>倾向于选择那些更能刻画数据整体分布的未标记数据进行标记查询。这些方法往往通过聚类或密度估计等无监督技术来评估样本的代表性，由于忽略了已标记样本因此整体性能也可能会依赖于聚类结果的好坏。</p>
+<h2 id="3-综合多种准则的查询策略"><a href="#3-综合多种准则的查询策略" class="headerlink" title="3.综合多种准则的查询策略"></a>3.综合多种准则的查询策略</h2><p>能够同时考虑选择样本的信息量和代表性，能够有效避免采样偏差和依赖聚类结果的问题。近年来已有研究者从不同角度提出综合多种查询准则的主动学习方法，并展示出较好的实验性能。</p>
+<h2 id="4-1-1不确定性度量的查询策略"><a href="#4-1-1不确定性度量的查询策略" class="headerlink" title="4.1.1不确定性度量的查询策略"></a>4.1.1不确定性度量的查询策略</h2><h3 id="（1）不确定性采样的查询"><a href="#（1）不确定性采样的查询" class="headerlink" title="（1）不确定性采样的查询"></a>（1）不确定性采样的查询</h3><ul>
+<li><strong>最小置信度（Least confidence）</strong><br>选择那些最大概率最小的样本进行标注。即对于每个数据点的选择概率的最大值从小到大进行排序。(看最有可能被分类的情况下各样本被成功分类的概率最小即特征最不明显的)。<br>最小置信度方法考虑那些模型预测概率最大但是可信度较低的样本数据。是最简单，最常用的方法，它通过置信度排序以最低的置信度对其预测的样本进行采样。</li>
+<li><strong>边际抽样（Margin Sampling）</strong><br>该方法与最小置信度法类似，不同在于该方法考虑最大概率和第二大概率的差异。边际抽样选择那些极容易被判定成两类的样本数据，这些数据被判定成两类的概率相差不大，即选择模型预测最大和第二大的概率差值最小的样本。<br>参考博客链接：</li>
+<li><strong>熵</strong><br>熵指的是系统的混乱程度或无序程度。熵越大反映系统不确定性越大。因此，选择熵大的样本进行标注有利于提升模型性能。</li>
+</ul>
+<h3 id="2-基于委员会的查询（Query-By-Commitee）"><a href="#2-基于委员会的查询（Query-By-Commitee）" class="headerlink" title="(2)基于委员会的查询（Query-By-Commitee）"></a>(2)基于委员会的查询（Query-By-Commitee）</h3><p>不确定性采样的查询策略只使用单个模型，基于委员会的查询考虑多个模型。类似于集成学习。它通过多个模型进行投票的方式选择出较为难区分的数据。包括两个步骤：首先使用多个模型构成委员会；然后委员会中所有模型对所有未标记样本进行预测，筛选出投票最不一致的样本进行标注。</p>
+<ul>
+<li><p><strong>投票熵（Vote Entropy）</strong><br>当多个模型将样本都投票为某一类，代表该样本容易区分，当多个模型对某个样本的投票结果都不一致时，代表带样本难以区分，需要重点关注。</p>
+</li>
+<li><p><strong>平均KL散度（Average KL Divergence）</strong><br>KL散度可以衡量两个概率分布之间的“距离”，也就是两个概率分布之间的相似程度，因此可以使用KL散度计算出偏差较大的数据样本。</p>
+</li>
+<li><p><strong>模型变化期望（Expected Model Change）</strong><br>模型错误率下降越多证明模型越好，让模型变化最大可以选择使得梯度变化最大的样本数据。</p>
+</li>
+<li><p><strong>基于误差减少的查询</strong><br>选择那些通过增加一个样本就使得 loss函数减少最多的样本数据。</p>
+</li>
+<li><p><strong>基于方差减少的查询</strong><br>选择方差降低最多的样本数据。</p>
+</li>
+<li><p><strong>基于密度权重减少的查询</strong><br>当数据分布不均匀时，某个数据可能位于稀疏区或者是异常点，不太适合作为主动学习标注的样本，或者数据具有明显的聚类结构，即不同类别的数据点在特征空间中有较大的区分度时，使用密度权重可以更准确地反映数据点的重要性和捕捉聚类这样的结构。这时考虑那些稠密的较难区分的数据点价值更大。</p>
+</li>
+</ul>
+<h1 id="五、实践"><a href="#五、实践" class="headerlink" title="五、实践"></a>五、实践</h1><h2 id="回归预测"><a href="#回归预测" class="headerlink" title="回归预测"></a>回归预测</h2><h2 id="分类任务"><a href="#分类任务" class="headerlink" title="分类任务"></a>分类任务</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_46428351/article/details/136396293">https://blog.csdn.net/weixin_46428351/article/details/136396293</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/m0_63642362/article/details/127705711">https://blog.csdn.net/m0_63642362/article/details/127705711</a></li>
+</ul>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E6%95%B0%E6%8D%AE%E6%A0%87%E6%B3%A8/" class="category-chain-item">数据标注</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Labeling/" class="print-no-link">#Labeling</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>数据标注|主动学习</div>
+      <div>http://example.com/2024/06/06/数据标注/数据标注-主动学习/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>Author</div>
+          <div>DJocker</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>Posted on</div>
+          <div>June 6, 2024</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>Licensed under</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - Attribution">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2024/07/24/Tree-sitter/Tree-sitter/" title="Tree-sitter|First">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Tree-sitter|First</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/05/27/webLearning/%E5%A8%81%E8%83%81%E6%83%85%E6%8A%A5%E7%9B%B8%E5%85%B3%E5%8D%8F%E8%AE%AE%E7%B1%BB%E5%9E%8B/" title="威胁情报相关协议类型">
+                        <span class="hidden-mobile">威胁情报相关协议类型</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>Table of Contents</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">Keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">Blog works best with JavaScript enabled</div>
+  </noscript>
+</body>
+</html>
